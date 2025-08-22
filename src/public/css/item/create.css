@@ -1,0 +1,33 @@
+
+
+
+.file-upload{
+    display: none;
+}
+
+
+.item-name__input input{
+  border: 1px solid black;
+}
+
+.item-price__input{
+    position: relative;
+    display: inline-block;
+}
+
+.yen-mark {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  font-size: 16px;
+  color: #333;
+  pointer-events: none; /* クリックを無効化 */
+}
+
+.price-box {
+  padding-left: 25px; /* ￥マークの分だけ余白を確保 */
+  font-size: 16px;
+  height: 36px;
+  width: 120px;
+}

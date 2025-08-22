@@ -19,9 +19,4 @@ class Purchase extends Model
     {
         return $this->belongsTo(Item::class);
     }
-
-    public function payment()
-    {
-        return $this->hasOne(Payment::class);
-    }
 }

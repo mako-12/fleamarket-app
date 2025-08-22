@@ -1,0 +1,52 @@
+
+.top-page{
+    width: 100%;
+    height: 100%;
+    margin: 20px auto;
+}
+input[type="radio"]
+{
+    display: none;
+}
+.tab{
+    padding: 20px 0 5px 160px;
+    border-bottom: 1px solid black;
+}
+
+.tab__label{
+    font-size: 18px;
+}
+.tab__label:last-child{
+    margin-left: 60px;
+}
+
+.tab-panel{
+    display: none;
+}
+
+#tab-recommend:checked~.tab-page #panel-recommend{
+    display: block;
+}
+
+#tab-mylist:checked~.tab-page #panel-mylist{
+    display: block;
+}
+
+.tab-panel__inner{
+    margin: 50px;
+}
+
+.recommend-panel{
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 20px;
+}
+
+.item__card img{
+    width: 300px;
+    height: 300px;
+}
+
+.item__name {
+  font-size: 18px;
+}

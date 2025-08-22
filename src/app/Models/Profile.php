@@ -26,9 +26,9 @@ class Profile extends Model
         return $this->belongsTo(Address::class);
     }
 
-    public function items()
+    public function favoriteItems()
     {
-        return $this->hasMany(Item::class);
+        return $this->belongsToMany(Item::class, 'favorites', 'profile_id', 'item_id');
     }
 
     public function comments()
@@ -36,10 +36,10 @@ class Profile extends Model
         return $this->hasMany(Comment::class);
     }
 
-    public function favorites()
-    {
-        return $this->hasMany(Favorite::class);
-    }
+    // public function favorites()
+    // {
+    //     return $this->hasMany(Favorite::class);
+    // }
 
     public function purchases()
     {

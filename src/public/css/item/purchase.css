@@ -1,0 +1,18 @@
+.content{
+    height: 100%;
+    margin: 60px;
+}
+
+.purchase-page_left{
+    display: grid;
+
+    grid-template-columns: 2fr 1fr;
+}
+
+
+
+
+.item-card img{
+    width: 250px;
+    height: 250px;
+}

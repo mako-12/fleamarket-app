@@ -7,16 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Comment extends Model
 {
-    use HasFactory;
+  use HasFactory;
 
+  protected $fillable = ['content'];
 
-    public function item()
-    {
-        return $this->belongsTo(Item::class);
-    }
+  public function item()
+  {
+    return $this->belongsTo(Item::class);
+  }
 
-    public function profile()
-    {
-        return $this->belongsTo(Profile::class);
-    }
+  public function profile()
+  {
+    return $this->belongsTo(Profile::class);
+  }
 }

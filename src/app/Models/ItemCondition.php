@@ -12,6 +12,6 @@ class ItemCondition extends Model
 
     public function items()
     {
-        return $this->hasMany(Item::class);
+        return $this->hasMay(Item::class);
     }
 }

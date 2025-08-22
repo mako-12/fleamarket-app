@@ -19,32 +19,32 @@ class Item extends Model
         'price',
     ];
 
-    public function profile()
+    public function favoriteProfiles()
     {
-        return $this->belongsTo(Profile::class);
+        return $this->belongsToMany(Profile::class,'favorites','item_id','profile_id');
     }
 
     public function comments()
     {
-        return $this->hasMany(Comment::class);
+        return $this->hasMany(Comment::class,);
     }
 
-    public function favorites()
-    {
-        return $this->hasMany(Favorite::class);
-    }
+    // public function favorites()
+    // {
+    //     return $this->hasMany(Favorite::class);
+    // }
 
-    public function itemCategory()
+    public function itemCategories()
     {
-        return $this->belongsTo(ItemCategory::class);
+        return $this->belongsToMany(ItemCategory::class, 'item_category_item', 'item_id', 'item_category_id');
     }
 
     public function itemCondition()
     {
-        return $this->belongsTo(ItemCondition::class);
+        return $this->belongsTo(ItemCondition::class, 'item_condition_id');
     }
 
-    public function purchase()
+    public function purchases()
     {
         return $this->hasOne(Purchase::class);
     }
