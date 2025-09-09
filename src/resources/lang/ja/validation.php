@@ -103,7 +103,7 @@ return [
     'required_with_all'    => ':valuesが全て指定されている場合、:attributeも指定してください。',
     'required_without'     => ':valuesが指定されていない場合、:attributeを指定してください。',
     'required_without_all' => ':valuesが全て指定されていない場合、:attributeを指定してください。',
-    'same'                 => ':attributeと:otherが一致しません。',
+    'same'                 => ':attributeと:otherがしません。',
     'size'                 => [
         'numeric' => ':attributeには、:sizeを指定してください。',
         'file'    => ':attributeには、:size KBのファイルを指定してください。',
@@ -132,6 +132,10 @@ return [
     'custom' => [
         'attribute-name' => [
             'rule-name' => 'custom-message',
+        ],
+
+        'password' => [
+            'confirmed' => 'パスワードと一致しません',
         ],
     ],
 

@@ -10,29 +10,25 @@ class Item extends Model
     use HasFactory;
 
     protected $fillable = [
-        'item_category_id',
         'item_condition_id',
         'image',
         'name',
         'brand',
         'detail',
         'price',
+        'profile_id',
+        'item_image',
     ];
 
-    public function favoriteProfiles()
+    public function favoriteBy()
     {
-        return $this->belongsToMany(Profile::class,'favorites','item_id','profile_id');
+        return $this->belongsToMany(Profile::class, 'favorites', 'item_id', 'profile_id')->withTimestamps();
     }
 
     public function comments()
     {
         return $this->hasMany(Comment::class,);
     }
-
-    // public function favorites()
-    // {
-    //     return $this->hasMany(Favorite::class);
-    // }
 
     public function itemCategories()
     {
@@ -47,5 +43,10 @@ class Item extends Model
     public function purchases()
     {
         return $this->hasOne(Purchase::class);
+    }
+
+    public function profile()
+    {
+        return $this->belongsTo(Profile::class);
     }
 }

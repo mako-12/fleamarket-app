@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use phpDocumentor\Reflection\Types\Nullable;
 
 class CreatePurchasesTable extends Migration
 {
@@ -17,7 +18,7 @@ class CreatePurchasesTable extends Migration
             $table->id();
             $table->foreignId('profile_id')->constrained()->cascadeOnDelete();
             $table->foreignId('item_id')->constrained()->cascadeOnDelete();
-            $table->string('payment_method');
+            $table->tinyInteger('payment_method')->comment('1=コンビニ支払い 2=カード支払い')->nullable(false);
             $table->timestamps();
         });
     }

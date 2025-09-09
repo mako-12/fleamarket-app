@@ -18,13 +18,13 @@ class PurchasesTableSeeder extends Seeder
             [
                 'profile_id' => 1,
                 'item_id' => 1,
-                'payment_method' => 'コンビニ払い',
+                'payment_method' => 1,
 
             ],
             [
                 'profile_id' => 2,
                 'item_id' => 2,
-                'payment_method' => 'カード支払い',
+                'payment_method' => 2,
             ],
         ]);
     }

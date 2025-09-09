@@ -16,7 +16,7 @@ class ItemsTableSeeder extends Seeder
     {
         $itemId1 = DB::table('items')->insertGetId([
             'profile_id' => 1,
-            'item_image' => 'storage/item_image/Armani+Mens+Clock.jpg',
+            'item_image' => 'item_image/Armani+Mens+Clock.jpg',
             'item_condition_id' => 1,
             'name' => '腕時計',
             'brand' => 'Rolax',
@@ -31,7 +31,7 @@ class ItemsTableSeeder extends Seeder
 
         $itemId2 = DB::table('items')->insertGetId([
             'profile_id' => 2,
-            'item_image' => 'storage/item_image/HDD+Hard+Disk.jpg',
+            'item_image' => 'item_image/HDD+Hard+Disk.jpg',
             'item_condition_id' => 2,
             'name' => 'HDD',
             'brand' => '西芝',
@@ -45,7 +45,7 @@ class ItemsTableSeeder extends Seeder
 
         $itemId3 = DB::table('items')->insertGetId([
             'profile_id' => 2,
-            'item_image' => 'storage/item_image/iLoveIMG+d.jpg',
+            'item_image' => 'item_image/iLoveIMG+d.jpg',
             'item_condition_id' => 3,
             'name' => '玉ねぎ3束',
             'brand' => 'なし',

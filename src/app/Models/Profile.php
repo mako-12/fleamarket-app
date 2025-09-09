@@ -13,6 +13,7 @@ class Profile extends Model
         'address_id',
         'profile_image',
         'name',
+        'user_id',
 
     ];
 
@@ -23,12 +24,12 @@ class Profile extends Model
 
     public function address()
     {
-        return $this->belongsTo(Address::class);
+        return $this->belongsTo(Address::class, 'address_id');
     }
 
     public function favoriteItems()
     {
-        return $this->belongsToMany(Item::class, 'favorites', 'profile_id', 'item_id');
+        return $this->belongsToMany(Item::class, 'favorites', 'profile_id', 'item_id')->withTimestamps();
     }
 
     public function comments()
@@ -36,13 +37,13 @@ class Profile extends Model
         return $this->hasMany(Comment::class);
     }
 
-    // public function favorites()
-    // {
-    //     return $this->hasMany(Favorite::class);
-    // }
-
     public function purchases()
     {
         return $this->hasMany(Purchase::class);
+    }
+
+    public function items()
+    {
+        return $this->hasMany(Item::class);
     }
 }

@@ -9,9 +9,10 @@ class ItemCondition extends Model
 {
     use HasFactory;
 
+    protected $table = 'item_conditions';
 
     public function items()
     {
-        return $this->hasMay(Item::class);
+        return $this->hasMany(Item::class);
     }
 }

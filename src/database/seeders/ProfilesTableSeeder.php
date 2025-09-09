@@ -23,7 +23,7 @@ class ProfilesTableSeeder extends Seeder
                 'user_id' => 1,
                 'address_id' => 1,
                 'name' => 'michi',
-                'profile_image' => ' storage / item_image / kkrn_icon_user_4 . jpg ',
+                'profile_image' => '  item_image / kkrn_icon_user_4 . jpg ',
 
 
             ],
@@ -32,7 +32,7 @@ class ProfilesTableSeeder extends Seeder
                 'user_id' => 2,
                 'address_id' => 2,
                 'name' => 'mika',
-                'profile_image' => ' storage / item_image / kkrn_icon_user_4 . jpg ',
+                'profile_image' => '  item_image / kkrn_icon_user_4 . jpg ',
             ],
         ]);
     }

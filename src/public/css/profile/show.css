@@ -1,0 +1,69 @@
+
+.profile-page{
+    width: 100%;
+    height: 100%;
+    margin: 20px auto;
+}
+
+.user-image{
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+
+    overflow: hidden;
+    position: relative;
+
+}
+
+.user-image img{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    object-fit: cover;
+}
+
+
+
+input[type="radio"]{
+    display: none;
+}
+
+.tab-name{
+    padding: 20px 0 5px 160px;
+    border-bottom: 1px solid black;
+}
+
+.tab-label{
+    font-size: 18px;
+}
+
+.tab-label:last-child{
+    margin-left: 60px;
+}
+
+.tab-panel{
+    display: none;
+}
+
+#tab-sell:checked~.tab-page #sell-panel{
+    display: block;
+}
+
+#tab-purchase:checked~.tab-page #purchase-panel{
+    display: block;
+}
+
+
+.profile-page__information{
+    display: flex;
+}
+
+.user-icon{
+    height:200px ;
+    width:200px ;
+}

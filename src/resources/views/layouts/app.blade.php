@@ -35,7 +35,7 @@
                     </form>
 
 
-                    <a class="header-btn header-nav__mypage" href="/mypage">マイページ</a>
+                    <a class="header-btn header-nav__mypage" href="{{ route('mypage') }}">マイページ</a>
 
                     <a class="header-nav__sell" href="/sell">出品</a>
 
