@@ -12,9 +12,9 @@
 
         <div class="tab">
             <label for="tab-recommend" class="tab__label"
-                onclick="window.location='{{ route('home', ['tab' => 'recommend']) }}'">おすすめ</label>
+                onclick="window.location='{{ route('home', ['tab' => 'recommend', 'keyword' => request('keyword')]) }}'">おすすめ</label>
             <label for="tab-mylist" class="tab__label"
-                onclick="window.location='{{ route('home', ['tab' => 'mylist']) }}'">マイリスト</label>
+                onclick="window.location='{{ route('home', ['tab' => 'mylist', 'keyword' => request('keyword')]) }}'">マイリスト</label>
         </div>
 
 
@@ -23,14 +23,20 @@
                 <div class="tab-panel__inner">
                     <div class="recommend-panel">
                         @foreach ($items as $item)
+                        @if(auth()->check()&& optional(auth()->user()->profile)->id !=$item->profile_id)
                             <div class="item__card">
                                 <a href="/item/{{ $item->id }}"><img src="{{ asset('storage/' . $item->item_image) }}"
                                         alt="商品画像">
                                 </a>
                                 <div class="item__name">{{ $item->name }}
                                 </div>
-
+                                <div class="sold">
+                                    @if ($item->purchases)
+                                        <span class="sold-label">Sold</span>
+                                    @endif
+                                </div>
                             </div>
+                            @endif
                         @endforeach
                     </div>
                 </div>
@@ -39,7 +45,26 @@
 
             <div class="tab-panel" id="panel-mylist">
                 <div class="tab-panel__inner">
-                    <p>2page</p>
+                    <div class="mylist-panel">
+                        @if ($profile)
+                            @foreach ($items as $item)
+                                @if ($item->favoriteBy->contains($profile))
+                                    <div class="item__card">
+                                        <a href="/item/{{ $item->id }}"><img
+                                                src="{{ asset('storage/' . $item->item_image) }}" alt="商品画像">
+                                        </a>
+                                        <div class="item__name">{{ $item->name }}
+                                        </div>
+                                        <div class="sold">
+                                            @if ($item->purchases)
+                                                <span class="sold-label">Sold</span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                @endif
+                            @endforeach
+                        @endif
+                    </div>
                 </div>
 
             </div>

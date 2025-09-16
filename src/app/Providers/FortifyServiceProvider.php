@@ -5,7 +5,9 @@ namespace App\Providers;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Laravel\Fortify\Fortify;
+use Illuminate\Support\Facades\Event;
 use App\Actions\Fortify\CreateNewUser;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Cache\RateLimiting\Limit;
 use App\Actions\Fortify\ResetUserPassword;
@@ -57,10 +59,9 @@ class FortifyServiceProvider extends ServiceProvider
             public function toResponse($request)
             {
                 // 登録直後にプロフィール設定画面にリダイレクト
-                return redirect()->route('profile.setup');
+                // return redirect()->route('profile.setup');
+                return redirect()->route('verification.notice');
             }
         });
-
-        // $this->app->bind(FortifyLoginRequest::class, LoginRequest::class);
     }
 }

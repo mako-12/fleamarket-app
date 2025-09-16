@@ -1,18 +1,152 @@
 .content{
+    width: 100%;
     height: 100%;
-    margin: 60px;
+    margin: 60px auto;
 }
 
-.purchase-page_left{
+.purchase-page{
     display: grid;
-
     grid-template-columns: 2fr 1fr;
+    grid-column: 1/2;
+
+}
+.purchase-page__left-inner{
+    margin: 30px;
+    margin-left: 60px;
+    max-width: 880px;
+
 }
 
+.purchase-page__item{
+    margin-bottom: 50px;
+}
 
+.purchase-page__item{
+    display: flex;
 
+}
+.item-area{
+    margin-left: 50px;
+}
 
 .item-card img{
     width: 250px;
     height: 250px;
+}
+
+
+.item-name{
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.item-price{
+    font-size: 30px;
+    margin-top: 15px;
+}
+.yen-mark{
+    font-size: 25px;
+}
+.purchase-page__payments{
+    border-top: 2px solid gray;
+    border-bottom: 2px solid gray;
+}
+
+.payments-title{
+    display: flex;
+
+    margin: 30px 0;
+    margin-left: 40px;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+
+.payment_method{
+    border: 1px solid gray;
+    margin-bottom: 70px;
+    margin-left: 120px;
+    padding: 10px 120px 10px 20px;
+    color: gray
+
+
+}
+
+.address-page{
+    display: flex;
+    justify-content: space-between;
+
+    margin: 30px 0;
+}
+
+
+.shopping-address__title{
+    margin-left: 40px;
+    font-size: 22px;
+    font-weight: bold;
+
+}
+.address-change__btn{
+    font-size: 18px;
+    margin-right: 50px;
+
+    text-decoration: none;
+}
+
+.user-address__top{
+    /* margin-left: 70px; */
+    border-bottom: 2px solid gray;
+}
+
+.user-address__inner{
+    margin-left: 100px;
+}
+
+.user-address__address{
+    padding-bottom: 50px;
+
+}
+
+
+
+.purchase-page_right{
+    margin: 30px;
+}
+
+table {
+  table-layout: fixed;
+  border-collapse: collapse;
+    width: 100%;
+}
+
+table tr:last-child {
+  border-bottom: 1px solid gray;
+}
+
+table tr{
+    border-top: 1px solid gray;
+
+}
+
+table th {
+  text-align: center;
+  padding: 20px 0;
+  border-left:solid 1px gray;
+}
+table td {
+  text-align: center;
+  padding: 10px 0;
+  border-right:solid 1px gray;
+  font-size: 18px;
+}
+
+.purchase-btn{
+    margin-top: 60px;
+}
+
+.purchase-btn__submit{
+    padding: 10px;
+    border: none;
+    font-size: 20px;
+    font-weight: bold;
 }

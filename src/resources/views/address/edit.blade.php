@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('css')
-    <link rel="stylesheet" href="css/address/edit">
+    <link rel="stylesheet" href="{{ asset('css/address/edit.css') }}">
 @endsection
 
 
@@ -19,14 +19,16 @@
                         <div class="input-title">
                             <p>郵便番号</p>
                         </div>
-                        <div class="post-code__input">
+                        <div class="post-code__input input">
                             <input type="text" name="post_code">
                         </div>
 
                         <div class="post-code__error-message">
-                            @error('post_code')
-                                {{ $message }}
-                            @enderror
+                            <div class="error-message">
+                                @error('post_code')
+                                    {{ $message }}
+                                @enderror
+                            </div>
                         </div>
                     </div>
 
@@ -34,19 +36,21 @@
                         <div class="input-title">
                             <p>住所</p>
                         </div>
-                        <div class="address-input">
+                        <div class="address-input input">
                             <input type="text" name="address">
                         </div>
-                        @error('address')
-                            {{ $message }}
-                        @enderror
+                        <div class="error-message">
+                            @error('address')
+                                {{ $message }}
+                            @enderror
+                        </div>
                     </div>
 
                     <div class="address-page__group">
                         <div class="input-title">
                             <p>建物名</p>
                         </div>
-                        <div class="building-input">
+                        <div class="building-input input">
                             <input type="text" name="building">
                         </div>
                     </div>

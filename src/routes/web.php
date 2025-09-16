@@ -1,11 +1,15 @@
 <?php
 
+use Illuminate\Http\Request;
 use App\Models\ItemCondition;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\FavoriteController;
+use App\Http\Controllers\VerificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,7 +24,7 @@ use App\Http\Controllers\FavoriteController;
 
 Route::get('/', [ItemController::class, 'index'])->name('home');
 Route::get('/item/{item_id}', [ItemController::class, 'show'])->name('item.show');
-
+Route::get('/search', [ItemController::class, 'search'])->name('search');
 
 Route::middleware('auth')->group(function () {
     Route::get('/purchase/{item_id}', [ItemController::class, 'purchase'])->name('purchase');
@@ -38,8 +42,54 @@ Route::middleware('auth')->group(function () {
     Route::post('/item/{item_id}/comment', [CommentController::class, 'store'])->name('comment.store');
 
     Route::post('/favorite/{item_id}', [FavoriteController::class, 'toggle'])->name('favorite.toggle');
+
+
+    Route::get('/checkout/success/{item_id}', [ItemController::class, 'success'])->name('checkout.success');
+
+    Route::get('/checkout/cancel', [ItemController::class, 'index'])->name('checkout.cancel');
 });
 
 Route::post('/favorites/{item}', [FavoriteController::class, 'toggle'])->name('favorites.toggle')->middleware('auth');
 
-Route::post('/stripe/webhook',[\App\Http\Controllers\StripeWebhookController::class,'handle']);
+Route::post('/stripe/webhook', [\App\Http\Controllers\StripeWebhookController::class, 'handle']);
+
+
+
+
+
+
+// //メール承認機能(未承認ユーザーをverifyにリダイレクト)
+Route::get('/email/verify', function () {
+    return view('auth.verify');
+})->middleware('auth')->name('verification.notice');
+
+//メール内の認証リンクがアクセスするルート
+Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verify'])
+    ->middleware(['auth', 'signed'])->name('verification.verify');
+
+Route::post('/email/verification-notification', function (Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+    return back()->with('status', '認証メールを再送しました！');
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+
+//承認済ユーザーだけがアクセルできるように
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified']);
+
+
+//承認リンクをクリックしたら承認されるように(任意)
+Route::get('/email/check', [VerificationController::class, 'check'])
+    ->middleware('auth')->name('verification.check');
+
+
+
+
+//メール認証テスト
+Route::get('/test-mail', function () {
+    Mail::raw('これはテストメールです！', function ($message) {
+        $message->to('test@example.com')->subject('テスト送信');
+    });
+
+    return 'メールを送信しました！';
+});

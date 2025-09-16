@@ -17,11 +17,11 @@
                         src="{{ $profile && $profile->profile_image ? asset('storage/' . $profile->profile_image) : asset('storage/profile_image/kkrn_icon_user_4.png') }}"alt="プロフィール画像">
 
                     <div class="profile-image__area">
-                        <label for="fileupload">画像を選択する</label>
+                        <label class="profile-image__label" for="fileupload">画像を選択する</label>
                         <input class="profile-image__input" type="file" name="profile_image" id="fileupload">
                     </div>
 
-                    <div class="profile-image__error-message">
+                    <div class="profile-image__error-message error-message">
                         @error('profile_image')
                             {{ $message }}
                         @enderror
@@ -53,7 +53,7 @@
                     <input class="form__group-content--input" type="text" id="name" name="name"
                         value="{{ old('name', optional($profile)->name) }}">
 
-                    <div class="form__error-message">
+                    <div class="form__error-message error-message">
                         @error('name')
                             {{ $message }}
                         @enderror
@@ -61,23 +61,23 @@
                 </div>
 
                 <div class="form__group-content">
-                    <label for="post_code">郵便番号</label>
+                    <label class="form__group-content--label" for="post_code">郵便番号</label>
                     <input class="form__group-content--input" type="text" id="post_code" name="post_code"
                         value="{{ old('post_code', optional($address)->post_code) }}">
 
-                    <div class="form__error-message">
+                    <div class="form__error-message error-message">
                         @error('post_code')
                             {{ $message }}
                         @enderror
                     </div>
                 </div>
 
-                <div class="form__content-group">
-                    <label for="address">住所</label>
+                <div class="form__group-content">
+                    <label class="form__group-content--label" for="address">住所</label>
                     <input class="form__group-content--input" type="text" id="address" name="address"
                         value="{{ old('address', optional($address)->address) }}">
 
-                    <div class="form__error-message">
+                    <div class="form__error-message error-message">
                         @error('address')
                             {{ $message }}
                         @enderror
@@ -85,18 +85,14 @@
                 </div>
 
                 <div class="form__group-content">
-                    <label for="building">建物名</label>
+                    <label class="form__group-content--label" for="building">建物名</label>
                     <input class="form__group-content--input" type="text" id="building" name="building"
                         value="{{ old('building', optional($address)->building) }}">
                 </div>
-
-                <input class="form-btn btn" type="submit" value="更新する">
-
+                <div class="form-btn__update">
+                    <input class="form-btn btn" type="submit" value="更新する">
+                </div>
             </div>
         </form>
-
-
-
-
     </div>
 @endsection

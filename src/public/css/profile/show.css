@@ -6,13 +6,13 @@
 }
 
 .user-image{
-    width: 200px;
-    height: 200px;
+    width: 150px;
+    height: 150px;
     border-radius: 50%;
+    margin-left: 50px;
 
     overflow: hidden;
     position: relative;
-
 }
 
 .user-image img{
@@ -27,6 +27,35 @@
     object-fit: cover;
 }
 
+.profile-page__information{
+    display: flex;
+    width: 80%;
+    margin: 0 auto;
+    align-items: center;
+}
+
+.user-name{
+    font-size: 26px;
+    margin-left: 100px;
+}
+
+.profile-page__edit{
+    margin-left: auto;
+}
+
+.profile-edit-link{
+    font-size: 20px;
+    color: #FF5555;
+    border: 2px solid #FF5555;
+    margin-top: 30px;
+    border-radius: 8px;
+    padding: 10px 30px;
+    text-decoration: none;
+    font-weight: bold;
+
+    white-space: nowrap;
+
+}
 
 
 input[type="radio"]{
@@ -34,17 +63,27 @@ input[type="radio"]{
 }
 
 .tab-name{
-    padding: 20px 0 5px 160px;
+    color: gray;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 60px 0 5px 130px;
     border-bottom: 1px solid black;
 }
 
 .tab-label{
     font-size: 18px;
+    cursor: pointer;
 }
 
 .tab-label:last-child{
     margin-left: 60px;
 }
+
+#tab-sell:checked ~ .tab-name label[for="tab-sell"],
+#tab-purchase:checked ~ .tab-name label[for="tab-purchase"]{
+    color: red;
+}
+
 
 .tab-panel{
     display: none;
@@ -59,11 +98,24 @@ input[type="radio"]{
 }
 
 
-.profile-page__information{
-    display: flex;
+
+.sell-panel, .purchase-panel{
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 20px;
+
+    margin: 50px 80px;
 }
 
-.user-icon{
-    height:200px ;
-    width:200px ;
+.item-card{
+    text-decoration: none;
+}
+
+.item-card img{
+    width: 300px;
+    height: 300px;
+}
+
+.my-item-name {
+  font-size: 18px;
 }

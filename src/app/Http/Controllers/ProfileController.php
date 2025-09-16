@@ -12,12 +12,14 @@ use App\Http\Requests\ProfileRequest;
 
 class ProfileController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $profile = Profile::where('user_id', Auth::id())->first();
+        $tab = $request->input('tab', 'sell');
+        $profile = auth()->user()->profile;
+        $items = $profile->items;
+        $purchases = $profile->purchases()->with('item')->get();
 
-        $items = auth()->user()->profile->item;
-        return view('profile.show', compact('profile','items'));
+        return view('profile.show', compact('profile', 'items', 'tab', 'purchases'));
     }
 
 

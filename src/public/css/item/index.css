@@ -2,23 +2,33 @@
 .top-page{
     width: 100%;
     height: 100%;
-    margin: 20px auto;
+    margin:  20px auto;
 }
 input[type="radio"]
 {
     display: none;
 }
 .tab{
+
     padding: 20px 0 5px 160px;
     border-bottom: 1px solid black;
 }
 
 .tab__label{
     font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
 }
 .tab__label:last-child{
     margin-left: 60px;
 }
+
+#tab-recommend:checked ~ .tab label[for="tab-recommend"],
+#tab-mylist:checked ~ .tab label[for="tab-mylist"]{
+    color: red;
+}
+
+
 
 .tab-panel{
     display: none;
@@ -36,7 +46,7 @@ input[type="radio"]
     margin: 50px;
 }
 
-.recommend-panel{
+.recommend-panel, .mylist-panel{
     display: grid;
     grid-template-columns: repeat(4,1fr);
     gap: 20px;

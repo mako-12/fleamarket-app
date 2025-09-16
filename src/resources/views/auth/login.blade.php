@@ -14,7 +14,7 @@
                     <label class="login-form__label" for="email">メールアドレス</label>
                     <input class="login-form__input" type="mail" name="email" id="email">
 
-                    <p class="logion-form__error-message">
+                    <p class="login-form__error-message error-message">
                         @error('email')
                             {{ $message }}
                         @enderror
@@ -24,15 +24,17 @@
                     <label class="login-form__label" for="password">パスワード</label>
                     <input class="login-form__input" type="password" name="password" id="password">
 
-                    <p class="login-form__error">
+                    <p class="login-form__error-message error-message">
                         @error('password')
                             {{ $message }}
                         @enderror
                     </p>
                 </div>
-            <input class="login-form__btn btn" type="submit" value="ログインする">
+                <input class="login-form__btn btn" type="submit" value="ログインする">
             </form>
-            <a class="login-form__register" href="/register">会員登録はこちら</a>
+            <div class="login-form__register">
+                <a class="register-move" href="/register">会員登録はこちら</a>
+            </div>
         </div>
     </div>
 @endsection

@@ -2,22 +2,54 @@
 
 namespace App\Http\Controllers;
 
+use Stripe\Stripe;
 use App\Models\Item;
 use App\Models\Comment;
 use App\Models\Purchase;
 use App\Models\ItemCategory;
 use Illuminate\Http\Request;
+use Stripe\Checkout\Session;
 use App\Models\ItemCondition;
 use App\Http\Requests\ItemRequest;
-use Stripe\StripeClient;
+use App\Http\Requests\AddressRequest;
+use App\Http\Requests\PurchaseRequest;
 
 class ItemController extends Controller
 {
     public function index(Request $request)
     {
         $tab = $request->input('tab', 'recommend');
-        $items = Item::all();
-        return view('item.index', compact('items', 'tab'));
+
+        $query = Item::with('purchases', 'favoriteBy');
+
+
+            if (auth()->check()&& isset($query)) {
+                $profileId = optional(auth()->user()->profile)->id;
+                $query->where('profile_id', '!=', $profileId);
+            }
+
+
+        $items = $query->get();
+
+        $profile = auth()->check() ? auth()->user()->profile : null;
+
+
+
+        //検索フォーム
+        $keyword = $request->input('keyword');
+        $tab = $request->input('tab', 'recommend');
+
+        $query = Item::query();
+        if (!empty($keyword)) {
+            $query->where('name', 'like', "%{$keyword}%");
+        }
+
+        //検索結果の取得
+        $items = $query->get();
+        $profile = auth()->check() ? auth()->user()->profile : null;
+
+
+        return view('item.index', compact('items', 'tab', 'profile', 'keyword'));
     }
 
     public function show($item_id)
@@ -47,47 +79,53 @@ class ItemController extends Controller
 
 
     //購入機能
-    // public function purchaseStore(Request $request,$item_id)
-    // {
-    //     $purchase = Purchase::create([
-    //         'profile_id' => auth()->user()->profile->id,
-    //         'item_id'=>$item_id,
-    //         'payment_method' => $request->payment_method,
-    //     ]);
 
-    //     return redirect()->route('home');
-    // }
-
-
-    public function purchaseStore(Request $request, $item_id)
+    public function purchaseStore(PurchaseRequest $request, $item_id)
     {
+        Stripe::setApiKey(config('services.stripe.secret'));
+
         $item = Item::findOrFail($item_id);
 
-        $stripe = new StripeClient(env('STRIPE_SECRET_KEY'));
+        $payment_method = $request->input('payment_method');
 
-        $checkout = $stripe->checkout->sessions->create([
+        session([
+            'purchased_item_id' => $item->id,
+            'payment_method' => $payment_method,
+        ]);
+
+        $session = Session::create([
             'payment_method_types' => ['card', 'konbini'],
             'line_items' => [[
                 'price_data' => [
                     'currency' => 'jpy',
-                    'unit_amount' => $item->price * 1500000,
                     'product_data' => [
                         'name' => $item->name,
                     ],
+                    'unit_amount' => $item->price,
                 ],
                 'quantity' => 1,
             ]],
             'mode' => 'payment',
-            'success_url' => route('purchase.success', ['item_id' => $item->id]),
-            'cancel_url' => route('purchase.cancel'),
-            'metadata' => [
-                'profile_id' => auth()->user()->profile->id,
-                'item_id' => $item->id,
-            ],
+            'success_url' => route('checkout.success', ['item_id' => $item->id]),
+            'cancel_url' => route('checkout.cancel'),
+        ]);
+        return redirect($session->url);
+    }
+
+    //購入履歴の保存
+    public function success(Request $request)
+    {
+        $item_id = session('purchased_item_id');
+        $payment_method = session('payment_method');
+
+
+        Purchase::create([
+            'profile_id' => auth()->user()->profile->id,
+            'item_id' => $item_id,
+            'payment_method' => $payment_method,
 
         ]);
-
-        return redirect($checkout->url);
+        return redirect()->route('home');
     }
 
 
@@ -120,4 +158,32 @@ class ItemController extends Controller
 
         return redirect()->route('mypage');
     }
+
+    //検索
+    public function search(Request $request)
+    {
+        $keyword = $request->input('keyword');
+        $tab = $request->input('tab', 'recommend');
+
+        $query = Item::query();
+        // $query = $this->getSearchQuery($request,$query);
+        if (!empty($keyword)) {
+            $query->where('name', 'like', "%{$keyword}%");
+        }
+
+        //検索結果の取得
+        $items = $query->get();
+        $profile = auth()->check() ? auth()->user()->profile : null;
+
+        return view('item/index', compact('items', 'keyword', 'profile', 'tab'));
+    }
+
+    // public function getSearchQuery($request,$query)
+    // {
+    //     if(!empty($request->keyword)){
+    //         //
+    //     }
+    // }
+
+
 }

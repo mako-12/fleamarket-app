@@ -12,19 +12,19 @@
                 @csrf
                 <div class="register-form__group">
                     <label class="register-form__label" for="name">ユーザー名</label>
-                    <input class="register-form-input" type="text" name="name" id="name">
+                    <input class="register-form__input" type="text" name="name" id="name">
 
-                    <p class="register-form__error-message">
+                    <p class="register-form__error-message error-message">
                         @error('name')
                             {{ $message }}
                         @enderror
                     </p>
                 </div>
                 <div class="register-form__group">
-                    <label class="register-form_label" for="email">メールアドレス</label>
+                    <label class="register-form__label" for="email">メールアドレス</label>
                     <input class="register-form__input" type="mail" name="email" id="email">
 
-                    <p class="register-form__error-message">
+                    <p class="register-form__error-message error-message">
                         @error('email')
                             {{ $message }}
                         @enderror
@@ -34,19 +34,19 @@
                     <label class="register-form__label" for="password">パスワード</label>
                     <input class="register-form__input" type="password" name="password" id="password">
 
-                    <p class="register-form__error-message">
+                    <p class="register-form__error-message error-message">
                         @error('password')
                             {{ $message }}
                         @enderror
                     </p>
                 </div>
 
-                <div class="regisuter-form__group">
+                <div class="register-form__group">
                     <label for="password_confirmation" class="register-form__label">確認用パスワード</label>
                     <input class="register-form__input" type="password" name="password_confirmation"
                         id="password_confirmation">
 
-                    <p class="register-form__error">
+                    <p class="register-form__error-message error-message">
                         @error('password_confirmation')
                             {{ $message }}
                         @enderror
@@ -54,7 +54,9 @@
                 </div>
                 <input class="register-form__btn btn" type="submit" value="登録する">
             </form>
-            <a class="register-form__login" href="/login">ログインはこちら</a>
+            <div class="register-form__register">
+                <a class="login-move" href="/login">ログインはこちら</a>
+            </div>
         </div>
     </div>
 @endsection

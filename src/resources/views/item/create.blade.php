@@ -19,11 +19,12 @@
                 @csrf
                 <div class="item-image">
                     <div class="item-image__choice-btn">
-                        <label for="fileupload">画像を選択する</label>
+                        <label class="item-image__label" for="fileupload">画像を選択する</label>
                         <input class="file-upload" type="file" name="item_image" id="fileupload" accept="image/*">
+                        <img src="#" alt="画像プレビュー" id="preview" style="display: none; max-width: 100px;">
                     </div>
                     <div class="item-image__preview">
-                        <img src="#" alt="画像プレビュー" id="preview" style="display: none; max-width: 100px;">
+                        {{-- <img src="#" alt="画像プレビュー" id="preview" style="display: none; max-width: 100px;"> --}}
                     </div>
 
                     <script>
@@ -55,13 +56,14 @@
                         <p class="sub-title">商品の詳細</p>
                     </div>
                     <div class="item-category">
-                        <div class="category-title title">
+                        <h3 class="category-title title">
                             カテゴリー
-                        </div>
+                        </h3>
                         <div class="item-categories">
                             @foreach ($categories as $category)
-                                <label for="">
-                                    <input type="checkbox" name="categories[]" value="{{ $category->id }}" id="">
+                                <input class="item-category__checkbox" type="checkbox" name="categories[]"
+                                    value="{{ $category->id }}" id="category-{{ $category->id }}">
+                                <label class="category-btn" for="category-{{ $category->id }}">
                                     {{ $category->name }}
                                 </label>
                             @endforeach
@@ -74,12 +76,14 @@
                     </div>
                     <div class="item-condition">
                         <h3 class="item-condition__title title">商品の状態</h3>
-                        <select name="item_condition_id" id="" class="item-condition__select">
-                            <option value="" hidden>選択してください</option>
-                            @foreach ($conditions as $condition)
-                                <option value="{{ $condition->id }}">{{ $condition->name }}</option>
-                            @endforeach
-                        </select>
+                        <div class="select__wrapper">
+                            <select name="item_condition_id" id="" class="item-condition__select">
+                                <option value="" hidden>選択してください</option>
+                                @foreach ($conditions as $condition)
+                                    <option value="{{ $condition->id }}">{{ $condition->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                         <div class="item-condition__error-message error-message">
                             @error('item_condition_id')
                                 {{ $message }}
@@ -92,10 +96,10 @@
                         <p class="sub-title">商品名と説明</p>
                     </div>
                     <div class="item-listing__group">
-                        <div class="item-name__title title">商品名</div>
-                        <div class="item-name__input">
-                            <input type="text" name="name" id="">
-                        </div>
+                        <h3 class="item-name__title title">商品名</h3>
+
+                        <input class="item-name__input" type="text" name="name" id="">
+
                         <div class="item-name__error-message error-message">
                             @error('name')
                                 {{ $message }}
@@ -104,17 +108,15 @@
                     </div>
 
                     <div class="item-listing__group">
-                        <div class="item-name__title title">
+                        <h3 class="item-name__title title">
                             ブランド名
-                        </div>
-                        <div class="item-brand__input">
-                            <input type="text" name="brand" id="">
-                        </div>
+                        </h3>
+                        <input class="item-brand__input" type="text" name="brand" id="">
                     </div>
                     <div class="item-listing__group">
-                        <div class="item-name__title title">
+                        <h3 class="item-name__title title">
                             商品の説明
-                        </div>
+                        </h3>
                         <textarea name="detail" id="" cols="30" rows="10"></textarea>
                         <div class="item-detail_error-message error-message">
                             @error('detail')

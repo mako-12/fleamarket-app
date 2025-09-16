@@ -1,38 +1,144 @@
 .item-panel{
    display: grid;
-   width: 90%;
+   width: 100%;
    height: 100%;
-   margin: 30px auto;
+   margin: 40px auto;
 
    grid-template-columns: repeat(2,1fr);
+   gap: 50px;
 }
+
+.item-content{
+    width: 70%;
+    /* margin: 0 auto; */
+}
+
 
 .actions-btn{
-    display: flex;
+  display: flex;
+  gap: 50px;
 
+  margin-left: 20px;
 }
-
 
 .item-card{
   /* margin-left: 80px; */
   margin-top: 30px;
+  text-align: center;
 }
 
 .item-card img{
-    width: 400px;
-    height: 400px;
+    width: 600px;
+    height: 600px;
 }
 
 .item-content__sub{
     display: block;
 }
+.item-brand{
+    margin: 5px auto;
+}
 
+.item-price{
+    display: flex;
+    align-items: center;
+
+}
+
+.item-price__yen{
+    margin-right: 5px;
+    margin-top: 10px;
+}
+.item-price__number{
+    font-size: 30px;
+    margin: 15px 0;
+    align-items: center;
+}
+.tax{
+    font-size: 20px;
+}
+
+.action-count{
+    text-align: center;
+    font-weight: bold;
+}
+.purchase-btn{
+    margin: 20px auto;
+}
+.purchase-form{
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    align-items: center;
+    width: 100%;
+    height: 40px;
+    text-decoration: none;
+
+    font-size: 20px;
+    border-radius: 4px;
+
+    cursor: pointer;
+}
+
+.item-content__item-detail{
+    margin: 30px auto;
+}
+.item-detail__content{
+    margin: 20px auto;
+}
+
+.item-content__item-information{
+    margin: 40px auto;
+}
+.item-information__title{
+    margin: 10px auto;
+}
+
+.information{
+    white-space: nowrap;
+}
+.information-title{
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.category-inner,.condition-inner{
+    display: flex;
+    margin-bottom: 20px;
+}
+.category-content{
+    display: flex;
+    margin-left: 50px;
+    gap: 20px;
+
+
+
+}
+
+.category-simple, .condition-content{
+    padding: 0 10px;
+    background-color: rgb(212, 212, 212);
+    border-radius: 20px;
+    align-items: center;
+
+}
+
+.condition-content{
+    margin-left: 50px;
+}
+
+
+.comment-box{
+    margin-bottom: 15px;
+}
 .comment-area{
   display: flex;
 }
 
-.comment__user-info{
-    display: flex;
+.comment-title{
+    font-size: 28px;
+    font-weight: bold;
+    color: gray;
 }
 
 .icon{
@@ -51,15 +157,49 @@ object-fit: cover;
 
 .user-area{
     display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.user-name{
+    font-size: 20px;
+    font-weight: bold;
+}
+.comment-content{
+    padding: 10px 10px;
+    background-color: rgb(212, 212, 212);
+    border-radius: 4px;
+
+
+}
+
+
+
+.comment-title__sub{
+    padding: 20px 0 10px 0;
+    font-size: 22px;
+    font-weight: bold;
 }
 
 textarea{
-  resize: none;
-  width:400px;
   height:150px;
 }
 
+.comment-form__error-message{
+    text-align: left;
+}
+
 .comment-btn{
-  display: block;
+  /* display: block; */
+  margin-top: 20px;
+
+}
+.comment-btn__submit{
+    padding: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    align-items: center;
+
+    border: none;
 }
 

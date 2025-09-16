@@ -1,33 +1,159 @@
 
+.listing-page
+{
+    width: 100%;
+    height: 100%;
+    max-width: 700px;
+    margin: 20px auto;
+}
 
+.listing-page__title
+{
+    text-align: center;
+    margin: 30px auto;
+}
+
+.title{
+    margin-top: 30px;
+    margin-bottom: 5px;
+}
+
+.item-image__choice-btn
+{
+    border: dashed 1px gray;
+    border-radius: 3px;
+    padding: 40px;
+    text-align: center;
+
+}
+
+.item-image__label
+{
+    padding: 8px 12px 8px 12px;
+    border: solid 2px #FF5555;
+    border-radius: 8px;
+    color: #FF5555;
+    font-weight: bold;
+    cursor: pointer;
+}
 
 .file-upload{
     display: none;
 }
 
 
-.item-name__input input{
-  border: 1px solid black;
+.item-detail__title, .item-explanation__title
+{
+    padding-bottom: 10px;
+    border-bottom: solid 1px gray;
 }
+
+.sub-title
+{
+    margin-top:60px;
+    font-size: 24px;
+    font-weight: bold;
+    color: gray;
+}
+.category-title{
+    margin-bottom: 30px;
+}
+
+.item-categories{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+
+}
+
+.category-btn{
+
+    padding:1px 15px;
+    /* margin-left: 20px; */
+    color: #FF5555;
+    font-size: 14px;
+    border: solid 2px #FF5555;
+    border-radius: 20px;
+    white-space: nowrap;
+    cursor: pointer;
+
+}
+
+.item-category__checkbox:checked + label{
+    background-color: #FF5555;
+    color: white;
+}
+
+.category-btn:checked{
+    background-color: aqua;
+}
+
+.item-category__checkbox {
+    display: none;
+}
+
+.item-condition__select{
+    width: 100%;
+    height: 40px;
+    color: gray;
+    border: 1px solid gray;
+    padding-left: 30px;
+    border-radius: 6px;
+    font-weight: bold;
+}
+
+.select__wrapper{
+    position: relative;
+}
+
+.select__wrapper::after{
+    pointer-events: none;
+    content: "";
+    position: absolute;
+    top: 14px;
+    right: 18px;
+    border-right: 8px solid transparent;
+    border-top: 15px solid grey;
+    border-left: 8px solid transparent;
+    border-bottom: 0;
+}
+
+.item-name__input, .item-brand__input{
+    height: 40px;
+}
+
+
 
 .item-price__input{
     position: relative;
     display: inline-block;
+    width: 100%;
+
 }
 
 .yen-mark {
   position: absolute;
-  top: 50%;
-  left: 10px;
+  top: 20px;
+  left: 15px;
   transform: translateY(-50%);
-  font-size: 16px;
+  font-size: 20px;
   color: #333;
   pointer-events: none; /* クリックを無効化 */
+  font-weight: bold;
 }
 
 .price-box {
-  padding-left: 25px; /* ￥マークの分だけ余白を確保 */
+  padding-left: 35px; /* ￥マークの分だけ余白を確保 */
   font-size: 16px;
-  height: 36px;
-  width: 120px;
+  height: 40px;
+  /* width: 120px; */
+}
+
+.listing-page__btn{
+    margin-top: 70px;
+}
+
+.listing-submit{
+    height: 40px;
+    border: none;
 }
