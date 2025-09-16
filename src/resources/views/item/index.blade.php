@@ -23,19 +23,19 @@
                 <div class="tab-panel__inner">
                     <div class="recommend-panel">
                         @foreach ($items as $item)
-                        @if(auth()->check()&& optional(auth()->user()->profile)->id !=$item->profile_id)
-                            <div class="item__card">
-                                <a href="/item/{{ $item->id }}"><img src="{{ asset('storage/' . $item->item_image) }}"
-                                        alt="商品画像">
-                                </a>
-                                <div class="item__name">{{ $item->name }}
+                            @if (!auth()->check() || optional(auth()->user()->profile)->id != $item->profile_id)
+                                <div class="item__card">
+                                    <a href="/item/{{ $item->id }}"><img
+                                            src="{{ asset('storage/' . $item->item_image) }}" alt="商品画像">
+                                    </a>
+                                    <div class="item__name">{{ $item->name }}
+                                    </div>
+                                    <div class="sold">
+                                        @if ($item->purchases)
+                                            <span class="sold-label">Sold</span>
+                                        @endif
+                                    </div>
                                 </div>
-                                <div class="sold">
-                                    @if ($item->purchases)
-                                        <span class="sold-label">Sold</span>
-                                    @endif
-                                </div>
-                            </div>
                             @endif
                         @endforeach
                     </div>

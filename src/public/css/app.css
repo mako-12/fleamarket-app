@@ -46,11 +46,16 @@ input{
 }
 
 .header__search{
-    max-width: 600px;
-    min-width: 200px;
+    /* display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    max-width: 600px; */
+    min-width: 250px;
 }
 
 .header__search-form{
+    display: flex;
+    justify-content: center;
     margin: 0 auto;
 
 }
@@ -62,6 +67,7 @@ input{
     border-radius: 6px;
     padding-left: 30px;
 }
+
 
 input::placeholder{
     color: black;

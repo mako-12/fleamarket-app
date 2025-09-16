@@ -25,7 +25,7 @@
                     <form action="{{ route('home') }}" method="GET">
                         <div class="header__search-form">
                             <input class="header__search-form--keyword-input" type="text" name="keyword"
-                                value="{{ request('keyword') }}" placeholder="なにをお探しですか？">
+                                value="{{ request('keyword') }}" placeholder="なにをお探しですか？">1
                             <input type="hidden" name="tab" value="{{ request('tab', 'recommend') }}">
                         </div>
                     </form>
