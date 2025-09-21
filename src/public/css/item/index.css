@@ -60,3 +60,17 @@ input[type="radio"]
 .item__name {
   font-size: 18px;
 }
+
+
+.sold{
+    position: relative;
+}
+
+.sold-label{
+    position: absolute;
+    bottom: 298px;
+    padding: 5px 10px;
+    background-color: red;
+    color: white;
+
+}

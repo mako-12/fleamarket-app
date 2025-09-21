@@ -29,20 +29,22 @@
 
                 <div class="purchase-page__payments">
                     <label class="payments-title" for="">支払い方法</label>
-
-                    <select class="payment_method" name="payment_method" id="payment-select">
-                        <option hidden>選択してください</option>
-                        @foreach (\App\Models\Purchase::$methods as $value => $label)
-                            <option value="{{ $value }}">{{ $label }}</option>
-                        @endforeach
-                    </select>
+                    <div class="select__wrapper">
+                        <select class="payment_method" name="payment_method" id="payment-select">
+                            <option hidden>選択してください</option>
+                            @foreach (\App\Models\Purchase::$methods as $value => $label)
+                                <option value="{{ $value }}">✓ {{ $label }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="payments__error-message error-message">
+                        @error('payment_method')
+                            {{ $message }}
+                        @enderror
+                    </div>
                 </div>
 
-                <div class="payments__error-message error-message">
-                    @error('payment_method')
-                        {{ $message }}
-                    @enderror
-                </div>
+
 
                 {{-- 配送先 --}}
                 <div class="address-page">
@@ -61,9 +63,14 @@
                                     class="post-code-mark">〒</span>{{ $address->post_code }}
                             </p>
                         </div>
-                        <div class="user-address__address">
+                        <div class="user-address__address" name="address">
                             {{ $address->address }}
                             {{ $address->building }}
+                        </div>
+                        <div class="payments__error-message error-message">
+                            @error('address')
+                                {{ $message }}
+                            @enderror
                         </div>
                     </div>
                 </div>
@@ -84,7 +91,7 @@
                 <table>
                     <tr>
                         <th>商品代金</th>
-                        <td><span class="yen-mark__sub">¥</span>{{number_format($item->price) }}</td>
+                        <td><span class="yen-mark__sub">¥</span>{{ number_format($item->price) }}</td>
                     </tr>
                     <tr>
                         <th>支払い方法</th>

@@ -12,10 +12,6 @@ class RegisterController extends Controller
 {
     public function store(Request $request)
     {
-        // すでにログイン済みなら、メール送信だけして誘導画面へ
-        // event(new Registered($request->user()));
-
-
         // ユーザー取得（例：セッションやリクエストから）
         $user = User::where('email', $request->email)->first();
 

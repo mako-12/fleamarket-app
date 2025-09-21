@@ -18,14 +18,18 @@
             <form class="upload" action="{{ route('item.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="item-image">
-                    <div class="item-image__choice-btn">
-                        <label class="item-image__label" for="fileupload">画像を選択する</label>
-                        <input class="file-upload" type="file" name="item_image" id="fileupload" accept="image/*">
-                        <img src="#" alt="画像プレビュー" id="preview" style="display: none; max-width: 100px;">
-                    </div>
                     <div class="item-image__preview">
-                        {{-- <img src="#" alt="画像プレビュー" id="preview" style="display: none; max-width: 100px;"> --}}
+                        <img class="image-preview" src="#" alt="画像プレビュー" id="preview"
+                            style="display: none; max-width: 100px;">
+
+                        <div class="item-image__choice-btn">
+                            <label class="item-image__label" for="fileupload">画像を選択する</label>
+                            <input class="file-upload" type="file" name="item_image" id="fileupload" accept="image/*">
+                        </div>
                     </div>
+                    {{-- <div class="item-image__preview">
+                        <img src="#" alt="画像プレビュー" id="preview" style="display: none; max-width: 100px;">
+                    </div> --}}
 
                     <script>
                         document.getElementById('fileupload').addEventListener('change', function(event) {
@@ -80,7 +84,7 @@
                             <select name="item_condition_id" id="" class="item-condition__select">
                                 <option value="" hidden>選択してください</option>
                                 @foreach ($conditions as $condition)
-                                    <option value="{{ $condition->id }}">{{ $condition->name }}</option>
+                                    <option value="✓{{ $condition->id }}">✓{{ $condition->name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -91,6 +95,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="item-explanation">
                     <div class="item-explanation__title">
                         <p class="sub-title">商品名と説明</p>

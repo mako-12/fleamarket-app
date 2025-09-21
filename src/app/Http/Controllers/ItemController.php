@@ -178,12 +178,5 @@ class ItemController extends Controller
         return view('item/index', compact('items', 'keyword', 'profile', 'tab'));
     }
 
-    // public function getSearchQuery($request,$query)
-    // {
-    //     if(!empty($request->keyword)){
-    //         //
-    //     }
-    // }
-
 
 }

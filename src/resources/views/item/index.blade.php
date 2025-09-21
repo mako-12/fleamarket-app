@@ -32,7 +32,9 @@
                                     </div>
                                     <div class="sold">
                                         @if ($item->purchases)
-                                            <span class="sold-label">Sold</span>
+                                            <div class="sold">
+                                                <span class="sold-label">Sold</span>
+                                            </div>
                                         @endif
                                     </div>
                                 </div>
@@ -57,7 +59,10 @@
                                         </div>
                                         <div class="sold">
                                             @if ($item->purchases)
-                                                <span class="sold-label">Sold</span>
+                                                <div class="sold">
+
+                                                    <span class="sold-label">Sold</span>
+                                                </div>
                                             @endif
                                         </div>
                                     </div>

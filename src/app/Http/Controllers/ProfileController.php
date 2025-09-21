@@ -22,17 +22,11 @@ class ProfileController extends Controller
         return view('profile.show', compact('profile', 'items', 'tab', 'purchases'));
     }
 
-
-
-
-
     public function editAddress($item_id)
     {
         $item = Item::findOrFail($item_id);
         return view('address.edit', compact('item'));
     }
-
-
 
 
     //住所の更新の書き込み

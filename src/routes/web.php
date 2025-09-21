@@ -58,25 +58,25 @@ Route::post('/stripe/webhook', [\App\Http\Controllers\StripeWebhookController::c
 
 
 
-// //メール承認機能(未承認ユーザーをverifyにリダイレクト)
+// //メール認証機能(未承認ユーザーをverifyにリダイレクト)
 Route::get('/email/verify', function () {
     return view('auth.verify');
 })->middleware('auth')->name('verification.notice');
 
-//メール内の認証リンクがアクセスするルート
+//認証リンククリック時
 Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verify'])
     ->middleware(['auth', 'signed'])->name('verification.verify');
 
+//再送ボタン
 Route::post('/email/verification-notification', function (Request $request) {
     $request->user()->sendEmailVerificationNotification();
     return back()->with('status', '認証メールを再送しました！');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
-//承認済ユーザーだけがアクセルできるように
+//承認済ユーザーだけがアクセスできるように
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified']);
-
 
 //承認リンクをクリックしたら承認されるように(任意)
 Route::get('/email/check', [VerificationController::class, 'check'])

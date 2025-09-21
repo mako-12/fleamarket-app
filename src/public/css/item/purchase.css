@@ -50,6 +50,7 @@
 .purchase-page__payments{
     border-top: 2px solid gray;
     border-bottom: 2px solid gray;
+    height: 250px;
 }
 
 .payments-title{
@@ -61,16 +62,43 @@
     font-weight: bold;
 }
 
+.select__wrapper{
+    position: relative;
+}
+
+.select__wrapper::after{
+    pointer-events: none;
+    content: "";
+    position: absolute;
+    top: 18px;
+    left: 360px;
+    border-right: 8px solid transparent;
+    border-top: 15px solid grey;
+    border-left: 8px solid transparent;
+    border-bottom: 0;
+}
 
 .payment_method{
-    border: 1px solid gray;
-    margin-bottom: 70px;
+    border: 2px solid gray;
+    font-weight: bold;
     margin-left: 120px;
     padding: 10px 120px 10px 20px;
-    color: gray
-
-
+    color: gray;
+    border-radius: 6px;
 }
+
+.payment_method option{
+    background-color: rgb(99, 99, 99);
+    color: white;
+    border: 2px solid gray;
+    border-radius: 6px;
+}
+
+.payments__error-message{
+
+    margin-left: 120px;
+}
+
 
 .address-page{
     display: flex;
