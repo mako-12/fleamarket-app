@@ -5,27 +5,23 @@
 @endsection
 
 @section('content')
-    <div class="purchase-page">
-        <div class="purchase-page__left-inner">
-            <div class="purchase-page__item">
-                <div class="item-card">
-                    <img src="{{ asset('storage/' . $item->item_image) }}" alt="商品画像">
-                </div>
-                <div class="item-area">
-                    <div class="item-name">
-                        <p>{{ $item->name }}</p>
+    <form class="purchase-page__btn" action="{{ route('purchase.store', ['item_id' => $item->id]) }}" method="POST">
+        @csrf
+        <div class="purchase-page">
+            <div class="purchase-page__left-inner">
+                <div class="purchase-page__item">
+                    <div class="item-card">
+                        <img src="{{ asset('storage/' . $item->item_image) }}" alt="商品画像">
                     </div>
-                    <div class="item-price">
-                        <p><span class="yen-mark">¥</span>{{ $item->price }}</p>
+                    <div class="item-area">
+                        <div class="item-name">
+                            <p>{{ $item->name }}</p>
+                        </div>
+                        <div class="item-price">
+                            <p><span class="yen-mark">¥</span>{{ $item->price }}</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-
-
-            <form class="purchase-page__btn" action="{{ route('purchase.store', ['item_id' => $item->id]) }}"
-                method="POST">
-                @csrf
-
 
                 <div class="purchase-page__payments">
                     <label class="payments-title" for="">支払い方法</label>
@@ -43,8 +39,6 @@
                         @enderror
                     </div>
                 </div>
-
-
 
                 {{-- 配送先 --}}
                 <div class="address-page">
@@ -74,48 +68,37 @@
                         </div>
                     </div>
                 </div>
+            </div>
 
+            <div class="purchase-page_right">
+                <div class="purchase-page__right-inner">
+                    <table>
+                        <tr>
+                            <th>商品代金</th>
+                            <td><span class="yen-mark__sub">¥</span>{{ number_format($item->price) }}</td>
+                        </tr>
+                        <tr>
+                            <th>支払い方法</th>
+                            <td id="payment-display"></td>
+                        </tr>
+                    </table>
 
-                {{-- <div class="user-address__post-code">
-                        <input type="hidden" name="post_code" value="{{ $address->post_code }}">
-                    </div>
-                    <div class="user-address__address">
-                        <input type="hidden" name="address" value="{{ $address->address }}">
-                        <input type="hidden" name="building" value="{{ $address->building }}">
-                    </div> --}}
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            const selectBox = document.getElementById('payment-select');
+                            const display = document.getElementById('payment-display');
+                            display.textContent = '';
 
-        </div>
-
-        <div class="purchase-page_right">
-            <div class="purchase-page__right-inner">
-                <table>
-                    <tr>
-                        <th>商品代金</th>
-                        <td><span class="yen-mark__sub">¥</span>{{ number_format($item->price) }}</td>
-                    </tr>
-                    <tr>
-                        <th>支払い方法</th>
-                        <td id="payment-display"></td>
-                    </tr>
-                </table>
-
-                <script>
-                    document.addEventListener('DOMContentLoaded', function() {
-                        const selectBox = document.getElementById('payment-select');
-                        const display = document.getElementById('payment-display');
-                        display.textContent = '';
-
-                        selectBox.addEventListener('change', function() {
-                            display.textContent = selectBox.options[selectBox.selectedIndex].text;
+                            selectBox.addEventListener('change', function() {
+                                display.textContent = selectBox.options[selectBox.selectedIndex].text;
+                            });
                         });
-                    });
-                </script>
-                <div class="purchase-btn">
-                    <input class="purchase-btn__submit btn" type="submit" value="購入する">
+                    </script>
+                    <div class="purchase-btn">
+                        <input class="purchase-btn__submit btn" type="submit" value="購入する">
+                    </div>
                 </div>
             </div>
         </div>
-        </form>
-
-    </div>
+    </form>
 @endsection

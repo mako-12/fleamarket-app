@@ -21,7 +21,8 @@ class ItemConditionsTableSeeder extends Seeder
             ['name' => '状態が悪い'],
         ];
         foreach ($conditions as $condition) {
-            DB::table('item_conditions')->insert($condition,
+            DB::table('item_conditions')->insert(
+                $condition,
             );
         }
     }

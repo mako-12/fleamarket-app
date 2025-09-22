@@ -7,8 +7,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>coachtech</title>
     <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css" />
-    {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/modern-css-reset/dist/reset.min.css"> --}}
-
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     @yield('css')
 </head>

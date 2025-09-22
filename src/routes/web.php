@@ -51,11 +51,6 @@ Route::middleware('auth')->group(function () {
 
 Route::post('/favorites/{item}', [FavoriteController::class, 'toggle'])->name('favorites.toggle')->middleware('auth');
 
-Route::post('/stripe/webhook', [\App\Http\Controllers\StripeWebhookController::class, 'handle']);
-
-
-
-
 
 
 // //メール認証機能(未承認ユーザーをverifyにリダイレクト)

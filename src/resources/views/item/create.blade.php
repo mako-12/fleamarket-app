@@ -27,9 +27,6 @@
                             <input class="file-upload" type="file" name="item_image" id="fileupload" accept="image/*">
                         </div>
                     </div>
-                    {{-- <div class="item-image__preview">
-                        <img src="#" alt="画像プレビュー" id="preview" style="display: none; max-width: 100px;">
-                    </div> --}}
 
                     <script>
                         document.getElementById('fileupload').addEventListener('change', function(event) {
@@ -84,7 +81,7 @@
                             <select name="item_condition_id" id="" class="item-condition__select">
                                 <option value="" hidden>選択してください</option>
                                 @foreach ($conditions as $condition)
-                                    <option value="✓{{ $condition->id }}">✓{{ $condition->name }}</option>
+                                    <option value="s{{ $condition->id }}">✓{{ $condition->name }}</option>
                                 @endforeach
                             </select>
                         </div>

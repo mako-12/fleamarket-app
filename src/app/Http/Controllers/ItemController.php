@@ -166,7 +166,6 @@ class ItemController extends Controller
         $tab = $request->input('tab', 'recommend');
 
         $query = Item::query();
-        // $query = $this->getSearchQuery($request,$query);
         if (!empty($keyword)) {
             $query->where('name', 'like', "%{$keyword}%");
         }
