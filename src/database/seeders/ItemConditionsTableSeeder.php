@@ -15,14 +15,14 @@ class ItemConditionsTableSeeder extends Seeder
     public function run()
     {
         $conditions = [
-            ['name' => '良好'],
-            ['name' => '目立った傷や汚れなし'],
-            ['name' => 'やや傷や汚れあり'],
-            ['name' => '状態が悪い'],
+            ['id' => 1, 'name' => '良好'],
+            ['id' => 2, 'name' => '目立った傷や汚れなし'],
+            ['id' => 3, 'name' => 'やや傷や汚れあり'],
+            ['id' => 4, 'name' => '状態が悪い'],
         ];
         foreach ($conditions as $condition) {
             DB::table('item_conditions')->insert(
-                $condition,
+                $condition
             );
         }
     }

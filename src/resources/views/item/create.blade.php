@@ -81,7 +81,7 @@
                             <select name="item_condition_id" id="" class="item-condition__select">
                                 <option value="" hidden>選択してください</option>
                                 @foreach ($conditions as $condition)
-                                    <option value="s{{ $condition->id }}">✓{{ $condition->name }}</option>
+                                    <option value="{{ $condition->id }}">✓{{ $condition->name }}</option>
                                 @endforeach
                             </select>
                         </div>

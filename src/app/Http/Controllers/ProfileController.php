@@ -63,10 +63,10 @@ class ProfileController extends Controller
         ]);
 
 
-        if ($request->hasfile('profile_image')) {
+        if ($request->hasFile('profile_image')) {
             $path = $request->file('profile_image')->store('profile_image', 'public');
         } else {
-            $path = 'profile_image/kkrn_icon_user_4.png';
+            $path = $profile->profile_image ?? 'profile_image/kkrn_icon_user_4.png';
         }
 
         Profile::create([

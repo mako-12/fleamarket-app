@@ -23,11 +23,11 @@ DB_USERNAME=laravel_user
 DB_PASSWORD=laravel_pass
 ```
 5. アプリケーションキーの作成
- - php artisan key:generate
+  php artisan key:generate
 6. マイグレーションの実行
- - php artisan migrate
+  php artisan migrate
 7. シーディングの実行
- - php artisan db:seed
+  php artisan db:seed
 
 
 ## 使用技術(実行環境)
@@ -42,7 +42,26 @@ DB_PASSWORD=laravel_pass
 ## ER図
 
 
+
+
 ## URL
 - 開発環境：http://localhost/
 - phpMyAdmin:：http://localhost:8080/
+
+
+## 補足
+
+- 会員登録のバリデーションについて
+      機能要件ではFortifyを使用して会員登録を実装する前提になっていますが、
+      FortifyにFortifyRegisterRequestが存在しないため、今回は app/Http/Request/RegisterRequest を作成しFormRequestを用いたバリデーションを採用しています。
+
+      この構成により、登録時のバリデーションルールや、エラーメッセージを柔軟にカスタマイズできるようになっています。
+      
+
+- リダイレクト先の変更について
+      会員登録後は'/mypage/profile'へリダイレクトされる仕様ですが、
+      応用機能としてメール認証機能を追加している為、登録直後は'/email/verify'に遷移します。
+
+      そのため、テストコード内のリダイレクト先も'/email/verify'に変更しています。
+
 

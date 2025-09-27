@@ -59,7 +59,6 @@ class FortifyServiceProvider extends ServiceProvider
             public function toResponse($request)
             {
                 // 登録直後にプロフィール設定画面にリダイレクト
-                // return redirect()->route('profile.setup');
                 return redirect()->route('verification.notice');
             }
         });
