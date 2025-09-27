@@ -40,7 +40,7 @@ DB_PASSWORD=laravel_pass
 - MailHog
 
 ## ER図
-<img width="1111" height="821" alt="Image" src="https://github.com/user-attachments/assets/d1d7fa8d-25df-4454-ac58-44916b7c2a6d" />
+
 
 ## URL
 - 開発環境：http://localhost/
