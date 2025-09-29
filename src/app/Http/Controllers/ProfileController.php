@@ -56,26 +56,42 @@ class ProfileController extends Controller
     //プロフィール設定画面の内容の保存
     public function profileCreate(ProfileRequest $request)
     {
-        $address = Address::create([
-            'post_code' => $request->post_code,
-            'address' => $request->address,
-            'building' => $request->building,
-        ]);
+        $profile = Auth::user()->profile;
 
+        if ($profile) {
+            // 更新処理
+            $profile->address->update([
+                'post_code' => $request->post_code,
+                'address' => $request->address,
+                'building' => $request->building,
+            ]);
 
-        if ($request->hasFile('profile_image')) {
-            $path = $request->file('profile_image')->store('profile_image', 'public');
+            if ($request->hasFile('profile_image')) {
+                $path = $request->file('profile_image')->store('profile_image', 'public');
+                $profile->profile_image = $path;
+            }
+
+            $profile->name = $request->name;
+            $profile->save();
         } else {
-            $path = $profile->profile_image ?? 'profile_image/kkrn_icon_user_4.png';
+            // 初回登録処理
+            $address = Address::create([
+                'post_code' => $request->post_code,
+                'address' => $request->address,
+                'building' => $request->building,
+            ]);
+
+            $path = $request->hasFile('profile_image')
+                ? $request->file('profile_image')->store('profile_image', 'public')
+                : 'profile_image/kkrn_icon_user_4.png';
+
+            Profile::create([
+                'profile_image' => $path,
+                'name' => $request->name,
+                'address_id' => $address->id,
+                'user_id' => Auth::id(),
+            ]);
         }
-
-        Profile::create([
-            'profile_image' => $path,
-            'name' => $request->name,
-            'address_id' => $address->id,
-            'user_id' => Auth::id(),
-        ]);
-
         return redirect()->route('home');
     }
 }

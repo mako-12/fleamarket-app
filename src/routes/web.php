@@ -73,10 +73,10 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified']);
 
-//承認リンクをクリックしたら承認されるように(任意)
-Route::get('/email/check', [VerificationController::class, 'check'])
-    ->middleware('auth')->name('verification.check');
-
+//承認リンクをクリックしたら承認されるように
+Route::get('/email/check', function () {
+    return redirect()->away('http://localhost:8025/#');
+})->middleware('auth')->name('verification.check');
 
 
 

@@ -6,16 +6,16 @@ use Tests\TestCase;
 use App\Models\Item;
 use App\Models\User;
 use App\Models\Address;
-use App\Models\Comment;
 use App\Models\Profile;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Foundation\Testing\WithFaker;
 use Database\Seeders\ItemCategoriesTableSeeder;
 use Database\Seeders\ItemConditionsTableSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class FavoriteTest extends TestCase
+class CommentTest extends TestCase
 {
     use RefreshDatabase;
     /**
@@ -23,7 +23,7 @@ class FavoriteTest extends TestCase
      *
      * @return void
      */
-    public function test_いいねアイコンを押して、いいねした商品として登録ができる()
+    public function test_ログイン済みのユーザーはコメントを送信できる()
     {
         $user = User::create([
             'name' => 'test',
@@ -59,16 +59,74 @@ class FavoriteTest extends TestCase
             ['item_id' => $item1->id, 'item_category_id' => 5],
         ]);
 
-        $this->actingAs($user)->post('/favorite/' . $item1->id);
+        $response = $this->actingAs($user)->post('/item/' . $item1->id . '/comment', [
+            'content' => 'テストコメントです',
+        ]);
 
-        $this->assertDatabaseHas('favorites', [
-            'profile_id' => $profile->id,
+        $this->assertDatabaseHas('comments', [
             'item_id' => $item1->id,
+            'profile_id' => $profile->id,
+            'content' => 'テストコメントです',
+        ]);
+
+        $response->assertStatus(302);
+    }
+
+    public function test_ログイン前のユーザーはコメント送信できない()
+    {
+        $user = User::create([
+            'name' => 'test',
+            'email' => 'test@example.com',
+            'password' => Hash::make('password123'),
+        ]);
+        $this->actingAs($user);
+
+        $this->seed(ItemCategoriesTableSeeder::class);
+        $this->seed(ItemConditionsTableSeeder::class);
+
+        $address = Address::factory()->create();
+
+        $profile = Profile::create([
+            'id' => 1,
+            'user_id' => $user->id,
+            'address_id' => $address->id,
+            'name' => 'michi',
+            'profile_image' => 'item_image/kkrn_icon_user_4.jpg',
+        ]);
+
+        $item1 = Item::create([
+            'profile_id' => $profile->id,
+            'item_image' => 'item_image/Armani+Mens+Clock.jpg',
+            'item_condition_id' => 1,
+            'name' => '腕時計',
+            'brand' => 'Rolax',
+            'detail' => 'スタイリッシュなデザインのメンズ腕時計',
+            'price' => 15000,
+        ]);
+        DB::table('item_category_item')->insert([
+            ['item_id' => $item1->id, 'item_category_id' => 1],
+            ['item_id' => $item1->id, 'item_category_id' => 5],
+        ]);
+
+
+        Auth::logout();
+        $this->flushSession();
+        $this->assertGuest();
+
+        $response = $this->post('/item/' . $item1->id . '/comment', [
+            'content' => 'テストコメントです',
+        ]);
+
+
+        $response->assertRedirect('/login');
+
+        $this->assertDatabaseMissing('comments', [
+            'item_id' => $item1->id,
+            'content' => 'テストコメントです',
         ]);
     }
 
-
-    public function test_いいね追加済のアイコンは色が変化する()
+    public function test_255文字以上の場合、バリデーションメッセージを表示()
     {
         $user = User::create([
             'name' => 'test',
@@ -104,63 +162,12 @@ class FavoriteTest extends TestCase
             ['item_id' => $item1->id, 'item_category_id' => 5],
         ]);
 
-        $this->actingAs($user)->post('/favorite/' . $item1->id);
+        $longComment = str_repeat('あ', 256);
 
-        $this->assertDatabaseHas('favorites', [
-            'profile_id' => $profile->id,
-            'item_id' => $item1->id,
+        $response = $this->actingAs($user)->post('/item/' . $item1->id . '/comment', [
+            'content' => $longComment,
         ]);
 
-        $response = $this->get('/item/' . $item1->id);
-
-        $response->assertSee('<i class="fa-solid fa-star favorite-icon fa-2x">', false);
-    }
-
-    public function test_再度いいねアイコンを押すと、いいねした商品が解除される()
-    {
-        $user = User::create([
-            'name' => 'test',
-            'email' => 'test@example.com',
-            'password' => Hash::make('password123'),
-        ]);
-        $this->actingAs($user);
-
-        $this->seed(ItemCategoriesTableSeeder::class);
-        $this->seed(ItemConditionsTableSeeder::class);
-
-        $address = Address::factory()->create();
-
-        $profile = Profile::create([
-            'id' => 1,
-            'user_id' => $user->id,
-            'address_id' => $address->id,
-            'name' => 'michi',
-            'profile_image' => 'item_image/kkrn_icon_user_4.jpg',
-        ]);
-
-        $item1 = Item::create([
-            'profile_id' => $profile->id,
-            'item_image' => 'item_image/Armani+Mens+Clock.jpg',
-            'item_condition_id' => 1,
-            'name' => '腕時計',
-            'brand' => 'Rolax',
-            'detail' => 'スタイリッシュなデザインのメンズ腕時計',
-            'price' => 15000,
-        ]);
-        DB::table('item_category_item')->insert([
-            ['item_id' => $item1->id, 'item_category_id' => 1],
-            ['item_id' => $item1->id, 'item_category_id' => 5],
-        ]);
-
-        //１回目：いいねの登録
-        $this->actingAs($user)->post('/favorite/' . $item1->id);
-
-        //２回目：いいねの解除
-        $this->actingAs($user)->post('/favorite/' . $item1->id);
-
-        $this->assertDatabaseMissing('favorites', [
-            'profile_id' => $profile->id,
-            'item_id' => $item1->id,
-        ]);
+        $response->assertSessionHasErrors(['content']);
     }
 }

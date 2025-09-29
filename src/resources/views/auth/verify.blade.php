@@ -12,7 +12,8 @@
         </div>
 
         <div class="btn-submit">
-            <a href="{{ route('verification.check') }}" class="btn-primary">
+            {{-- <a href="{{ route('verification.check') }}" class="btn-primary"> --}}
+            <a href="http://localhost:8025/#" class="btn-primary">
                 認証はこちら
             </a>
         </div>

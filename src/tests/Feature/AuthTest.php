@@ -18,18 +18,42 @@ class AuthTest extends TestCase
      */
 
     //会員登録画面
-    public function test_Register未入力の場合は、バリデーションメッセージを表示()
+    public function test_Register名前が未入力の場合は、バリデーションメッセージを表示()
     {
         $response = $this->post('/register', [
             'name' => '',
+            'email' => 'test@example/com',
+            'password' => 'password123',
+            'password_confirmation' => 'password123',
+        ]);
+        $response->assertSessionHasErrors([
+            'name' => 'お名前を入力してください',
+        ]);
+    }
+
+    public function test_Registerメールアドレスが未入力の場合は、バリデーションメッセージを表示()
+    {
+        $response = $this->post('/register', [
+            'name' => 'test',
             'email' => '',
+            'password' => 'password123',
+            'password_confirmation' => 'password123',
+        ]);
+        $response->assertSessionHasErrors([
+            'email' => 'メールアドレスを入力してください',
+        ]);
+    }
+
+    public function test_Registerパスワードが未入力の場合は、バリデーションメッセージを表示()
+    {
+        $response = $this->post('/register', [
+            'name' => 'test',
+            'email' => 'test@example/com',
             'password' => '',
             'password_confirmation' => '',
         ]);
         $response->assertSessionHasErrors([
-            'name' => 'お名前を入力してください',
-            'email' => 'メールアドレスを入力してください',
-            'password' => 'パスワードを入力してください'
+            'password' => 'パスワードを入力してください',
         ]);
     }
 
@@ -74,18 +98,31 @@ class AuthTest extends TestCase
 
 
     //ログイン画面
-    public function test__login未入力の場合、バリデーションメッセージを表示()
+    public function test__loginメールアドレスが未入力の場合、バリデーションメッセージを表示()
     {
         $response = $this->post('/login', [
             'email' => '',
-            'password' => '',
+            'password' => 'password123',
         ]);
 
         $response->assertSessionHasErrors([
             'email' => 'メールアドレスを入力してください',
+        ]);
+    }
+
+
+    public function test__loginパスワードが未入力の場合、バリデーションメッセージを表示()
+    {
+        $response = $this->post('/login', [
+            'email' => 'test@example.com',
+            'password' => '',
+        ]);
+
+        $response->assertSessionHasErrors([
             'password' => 'パスワードを入力してください',
         ]);
     }
+
 
     public function test_login入力が間違っている場合、バリデーションメっセージを表示()
     {
