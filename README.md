@@ -40,6 +40,7 @@ DB_PASSWORD=laravel_pass
 - MailHog
 
 ## ER図
+use App\Http\Controllers\VerificationController;
 
 
 
