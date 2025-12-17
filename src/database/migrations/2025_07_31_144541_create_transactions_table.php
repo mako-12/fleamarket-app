@@ -5,7 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use phpDocumentor\Reflection\Types\Nullable;
 
-class CreatePurchasesTable extends Migration
+class CreateTransactionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,11 +14,14 @@ class CreatePurchasesTable extends Migration
      */
     public function up()
     {
-        Schema::create('purchases', function (Blueprint $table) {
+        Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('profile_id')->constrained()->cascadeOnDelete();
             $table->foreignId('item_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('buyer_profile_id')->constrained('profiles')->cascadeOnDelete();
+            $table->foreignId('seller_profile_id')->constrained('profiles')->cascadeOnDelete();
             $table->tinyInteger('payment_method')->comment('1=コンビニ支払い 2=カード支払い')->nullable(false);
+            $table->tinyInteger('status')->comment('0:購入完了,1:取引完了,2:評価完了');
+            $table->timestamp('completed_at')->nullable();
             $table->timestamps();
         });
     }
@@ -30,6 +33,6 @@ class CreatePurchasesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('purchases');
+        Schema::dropIfExists('transactions');
     }
 }

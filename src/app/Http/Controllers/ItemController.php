@@ -6,13 +6,13 @@ use Stripe\Stripe;
 use App\Models\Item;
 use App\Models\Comment;
 use App\Models\Purchase;
+use App\Models\Transaction;
 use App\Models\ItemCategory;
 use Illuminate\Http\Request;
 use Stripe\Checkout\Session;
 use App\Models\ItemCondition;
 use App\Http\Requests\ItemRequest;
-use App\Http\Requests\AddressRequest;
-use App\Http\Requests\PurchaseRequest;
+use App\Http\Requests\TransactionRequest;
 
 class ItemController extends Controller
 {
@@ -20,7 +20,7 @@ class ItemController extends Controller
     {
         $tab = $request->input('tab', 'recommend');
 
-        $query = Item::with('purchases', 'favoriteBy');
+        $query = Item::with('transactions', 'favoriteBy');
 
 
         if (auth()->check() && isset($query)) {
@@ -69,7 +69,7 @@ class ItemController extends Controller
     public function purchase($item_id)
     {
         $item = Item::findOrFail($item_id);
-        $purchases = Purchase::all();
+        $purchases = Transaction::all();
         $user = auth()->user();
         $address = $user->profile->address;
         return view('item.purchase', compact('item', 'purchases', 'address'));
@@ -78,7 +78,7 @@ class ItemController extends Controller
 
     //購入機能
 
-    public function purchaseStore(PurchaseRequest $request, $item_id)
+    public function purchaseStore(TransactionRequest $request, $item_id)
     {
         Stripe::setApiKey(config('services.stripe.secret'));
 
@@ -116,13 +116,24 @@ class ItemController extends Controller
         $item_id = session('purchased_item_id');
         $payment_method = session('payment_method');
 
+        $item = Item::findOrFail($item_id);
 
-        Purchase::create([
-            'profile_id' => auth()->user()->profile->id,
+        // Purchase::create([
+        //     'profile_id' => auth()->user()->profile->id,
+        //     'item_id' => $item_id,
+        //     'payment_method' => $payment_method,
+
+        // ]);
+
+        Transaction::create([
+            'buyer_profile_id' => auth()->user()->profile->id,
+            'seller_profile_id' => $item->profile_id,
             'item_id' => $item_id,
             'payment_method' => $payment_method,
-
+            'status' => Transaction::PURCHASE_COMPLETE,
         ]);
+
+
         return redirect()->route('home');
     }
 
@@ -152,7 +163,7 @@ class ItemController extends Controller
             'item_image' => $path,
         ]);
 
-        $item->itemCategories()->attach($request->item_category_ids);
+        $item->itemCategories()->attach($request->categories);
 
         return redirect()->route('mypage');
     }

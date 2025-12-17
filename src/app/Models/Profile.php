@@ -37,13 +37,33 @@ class Profile extends Model
         return $this->hasMany(Comment::class);
     }
 
-    public function purchases()
-    {
-        return $this->hasMany(Purchase::class);
-    }
-
     public function items()
     {
         return $this->hasMany(Item::class);
+    }
+
+    public function boughtTransactions()
+    {
+        return $this->hasMany(Transaction::class, 'buyer_profile_id');
+    }
+
+    public function soldTransactions()
+    {
+        return $this->hasMany(Transaction::class, 'seller_profile_id');
+    }
+
+    public function sentMessages()
+    {
+        return $this->hasMany(ChatMessage::class, 'sender_profile_id');
+    }
+
+    public function giveEvaluations()
+    {
+        return $this->hasMany(Evaluation::class, 'evaluator_profile_id');
+    }
+
+    public function receivedEvaluations()
+    {
+        return $this->hasMany(Evaluation::class, 'evaluated_profile_id');
     }
 }

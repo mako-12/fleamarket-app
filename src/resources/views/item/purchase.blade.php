@@ -28,7 +28,7 @@
                     <div class="select__wrapper">
                         <select class="payment_method" name="payment_method" id="payment-select">
                             <option hidden>選択してください</option>
-                            @foreach (\App\Models\Purchase::$methods as $value => $label)
+                            @foreach (\App\Models\Transaction::$methods as $value => $label)
                                 <option value="{{ $value }}"> {{ $label }}</option>
                             @endforeach
                         </select>

@@ -17,7 +17,7 @@ class ProfileController extends Controller
         $tab = $request->input('tab', 'sell');
         $profile = auth()->user()->profile;
         $items = $profile->items;
-        $purchases = $profile->purchases()->with('item')->get();
+        $purchases = $profile->boughtTransactions()->with('item')->get();
 
         return view('profile.show', compact('profile', 'items', 'tab', 'purchases'));
     }

@@ -40,9 +40,9 @@ class Item extends Model
         return $this->belongsTo(ItemCondition::class, 'item_condition_id');
     }
 
-    public function purchases()
+    public function transactions()
     {
-        return $this->hasOne(Purchase::class);
+        return $this->hasOne(Transaction::class);
     }
 
     public function profile()

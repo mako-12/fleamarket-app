@@ -21,7 +21,6 @@ class DatabaseSeeder extends Seeder
             ItemConditionsTableSeeder::class,
             ProfilesTableSeeder::class,
             ItemsTableSeeder::class,
-            PurchasesTableSeeder::class,
         ]);
     }
 }

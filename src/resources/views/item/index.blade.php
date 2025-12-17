@@ -31,7 +31,7 @@
                                     <div class="item__name">{{ $item->name }}
                                     </div>
                                     <div class="sold">
-                                        @if ($item->purchases)
+                                        @if ($item->transactions)
                                             <div class="sold">
                                                 <span class="sold-label">Sold</span>
                                             </div>
@@ -50,7 +50,7 @@
                     <div class="mylist-panel">
                         @if ($profile)
                             @foreach ($items as $item)
-                                @if ($item->favoriteBy->contains($profile))
+                                @if ($item->favoriteBy->contains($profile) && $item->profile_id !== $profile->id)
                                     <div class="item__card">
                                         <a href="/item/{{ $item->id }}"><img
                                                 src="{{ asset('storage/' . $item->item_image) }}" alt="商品画像">
@@ -58,7 +58,7 @@
                                         <div class="item__name">{{ $item->name }}
                                         </div>
                                         <div class="sold">
-                                            @if ($item->purchases)
+                                            @if ($item->transactions)
                                                 <div class="sold">
 
                                                     <span class="sold-label">Sold</span>

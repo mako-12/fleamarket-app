@@ -14,18 +14,18 @@ class PurchasesTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('purchases')->insert([
-            [
-                'profile_id' => 1,
-                'item_id' => 1,
-                'payment_method' => 1,
+        // DB::table('purchases')->insert([
+        //     [
+        //         'profile_id' => 1,
+        //         'item_id' => 1,
+        //         'payment_method' => 1,
 
-            ],
-            [
-                'profile_id' => 2,
-                'item_id' => 2,
-                'payment_method' => 2,
-            ],
-        ]);
+        //     ],
+        //     [
+        //         'profile_id' => 2,
+        //         'item_id' => 2,
+        //         'payment_method' => 2,
+        //     ],
+        // ]);
     }
 }

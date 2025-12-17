@@ -75,12 +75,14 @@ input[type="radio"]{
     cursor: pointer;
 }
 
-.tab-label:last-child{
+.tab-label:not(:first-child){
     margin-left: 60px;
 }
 
 #tab-sell:checked ~ .tab-name label[for="tab-sell"],
-#tab-purchase:checked ~ .tab-name label[for="tab-purchase"]{
+#tab-purchase:checked ~ .tab-name label[for="tab-purchase"],
+#tab-trading:checked ~ .tab-name label[for="tab-trading"]
+{
     color: red;
 }
 
@@ -97,6 +99,9 @@ input[type="radio"]{
     display: block;
 }
 
+#tab-trading:checked~ .tab-page #trading-panel{
+    display: block;
+}
 
 
 .sell-panel, .purchase-panel{

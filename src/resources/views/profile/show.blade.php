@@ -25,12 +25,15 @@
         <div class="profile-page__item-list">
             <input type="radio" name="tab-btn" id="tab-sell"{{ $tab === 'sell' ? 'checked' : '' }}>
             <input type="radio" name="tab-btn" id="tab-purchase"{{ $tab === 'buy' ? 'checked' : '' }}>
+            <input type="radio" name="tab-btn" id="tab-trading"{{ $tab === 'trading' ? 'checked' : '' }}>
 
             <div class="tab-name">
                 <label class="tab-label" for="tab-sell"
                     onclick="window.location='{{ route('mypage', ['tab' => 'sell']) }}'">出品した商品</label>
                 <label class="tab-label" for="tab-purchase"
                     onclick="window.location='{{ route('mypage', ['tab' => 'buy']) }}'">購入した商品</label>
+                <label class="tab-label" for="tab-trading"
+                    onclick="window.location='{{ route('mypage', ['tab' => 'trading']) }}">取引中の商品</label>
             </div>
 
             <div class="tab-page">
@@ -66,6 +69,13 @@
                         @endforelse
                     </div>
                 </div>
+                <div class="tab-panel" id="trading-panel">
+                    <div class="trading-panel">
+                        <p>3page</p>
+                    </div>
+                </div>
+
+
             </div>
         </div>
     </div>
