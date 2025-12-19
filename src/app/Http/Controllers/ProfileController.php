@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Item;
 use App\Models\Address;
 use App\Models\Profile;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\AddressRequest;
@@ -19,7 +20,28 @@ class ProfileController extends Controller
         $items = $profile->items;
         $purchases = $profile->boughtTransactions()->with('item')->get();
 
-        return view('profile.show', compact('profile', 'items', 'tab', 'purchases'));
+        // $tradingTransactions = Transaction::where('buyer_profile_id', $profile->id)
+        //     ->where('status', Transaction::PURCHASE_COMPLETE)
+        //     ->with('item')
+        //     ->get();
+
+        //PURCHASE_COMPLETE(購入済み)を取得
+        $tradingTransactions = Transaction::where(function ($query) use ($profile) {
+            $query->where('buyer_profile_id', $profile->id)
+                ->orWhere('seller_profile_id', $profile->id);
+        })
+            ->where('status', Transaction::PURCHASE_COMPLETE)
+            ->with('item')
+            ->get();
+
+        //TRANSACTION_COMPLETE(取引完了)を取得
+        $completedTransactions = Transaction::where('seller_profile_id', $profile->id)
+            ->where('status', Transaction::TRANSACTION_COMPLETE)
+            ->with('item')
+            ->get();
+
+
+        return view('profile.show', compact('profile', 'items', 'tab', 'purchases', 'tradingTransactions', 'completedTransactions'));
     }
 
     public function editAddress($item_id)

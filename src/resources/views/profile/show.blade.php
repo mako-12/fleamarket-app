@@ -57,13 +57,24 @@
 
                 <div class="tab-panel" id="purchase-panel">
                     <div class="purchase-panel">
-                        @forelse($purchases as $purchase)
+                        {{-- @forelse($purchases as $purchase)
                             <div class="item-card">
                                 <a href="/item/{{ $purchase->item->id }}"><img
                                         src="{{ asset('storage/' . $purchase->item->item_image) }}" alt="商品画像">
                                 </a>
                                 <p class="my-item-name">{{ $purchase->item->name }}</p>
-                            </div>
+                            </div> --}}
+
+                        @forelse($tradingTransactions as $tradingTransaction)
+                            @if ($tradingTransaction->status === \App\Models\Transaction::EVALUATED_COMPLETE)
+                                <div class="item-card">
+                                    <a href="/item/{{ $tradingTransaction->item->id }}"><img
+                                            src="{{ asset('storage/' . $tradingTransaction->item->item_image) }}"
+                                            alt="商品画像">
+                                    </a>
+                                    <p class="my-item-name">{{ $purchase->item->name }}</p>
+                                </div>
+                            @endif
                         @empty
                             <p class="sell-panel__message">まだ商品を購入していません</p>
                         @endforelse
@@ -71,11 +82,28 @@
                 </div>
                 <div class="tab-panel" id="trading-panel">
                     <div class="trading-panel">
-                        <p>3page</p>
+                        @php
+                            $transactions = $tradingTransactions->merge($completedTransactions);
+                        @endphp
+
+
+                        @forelse($transactions as $transaction)
+                            <div class="item-card">
+                                <a href="/transactions/{{ $transaction->id }}/chat">
+                                    <img src="{{ asset('storage/' . $transaction->item->item_image) }}" alt="商品画像">
+                                </a>
+                                <p class="my-item-name">{{ $transaction->item->name }}
+                                </p>
+                            </div>
+                        @empty
+                            <p class="sell-panel__message">取引中の商品はありません</p>
+                        @endforelse
+
+
+
+
                     </div>
                 </div>
-
-
             </div>
         </div>
     </div>

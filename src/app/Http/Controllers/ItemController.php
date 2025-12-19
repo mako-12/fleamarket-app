@@ -125,7 +125,7 @@ class ItemController extends Controller
 
         // ]);
 
-        Transaction::create([
+        $transaction = Transaction::create([
             'buyer_profile_id' => auth()->user()->profile->id,
             'seller_profile_id' => $item->profile_id,
             'item_id' => $item_id,
@@ -134,7 +134,8 @@ class ItemController extends Controller
         ]);
 
 
-        return redirect()->route('home');
+        // return redirect()->route('home');
+        return redirect()->route('chat.index', $transaction->id);
     }
 
 

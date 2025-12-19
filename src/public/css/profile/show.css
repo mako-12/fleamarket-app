@@ -104,7 +104,7 @@ input[type="radio"]{
 }
 
 
-.sell-panel, .purchase-panel{
+.sell-panel, .purchase-panel, .trading-panel{
     display: grid;
     grid-template-columns: repeat(4,1fr);
     gap: 20px;

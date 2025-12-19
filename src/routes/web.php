@@ -9,6 +9,8 @@ use App\Http\Controllers\ItemController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\FavoriteController;
+use App\Http\Controllers\ChatMessageController;
+use App\Http\Controllers\EvaluationController;
 use App\Http\Controllers\VerificationController;
 
 /*
@@ -47,6 +49,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/checkout/success/{item_id}', [ItemController::class, 'success'])->name('checkout.success');
 
     Route::get('/checkout/cancel', [ItemController::class, 'index'])->name('checkout.cancel');
+
+    //Proテスト追記部分
+    Route::get('/transactions/{transaction}/chat', [ChatMessageController::class, 'index'])->name('chat.index');
+    Route::post('/transactions/{transaction}/chat', [ChatMessageController::class, 'store'])->name('chat.store');
+    Route::get('/transaction/{transaction}/chat/modal',[ChatMessageController::class,'modal'])->name('chat.modal');
+
+    Route::get('/transaction/{transaction}/evaluation', [EvaluationController::class, 'create'])->name('evaluation.create');
+    Route::post('/transaction/{transaction}/evaluation', [EvaluationController::class, 'store'])->name('evaluation.store');
 });
 
 Route::post('/favorites/{item}', [FavoriteController::class, 'toggle'])->name('favorites.toggle')->middleware('auth');
