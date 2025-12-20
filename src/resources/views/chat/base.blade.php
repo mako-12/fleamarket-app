@@ -9,6 +9,14 @@
     <div class="chat-page">
         <aside class="aside">
             <h2>その他の取引</h2>
+            @foreach ($sidebarTransactions as $sidebarTransaction)
+                <div class="other-items">
+                    <a href="{{ route('chat.index', $sidebarTransaction->id) }}"
+                        class="{{ $sidebarTransaction->id === $transaction->id ? 'active' : '' }} other-items__link">
+                        {{ $sidebarTransaction->item->name }}
+                    </a>
+                </div>
+            @endforeach
         </aside>
 
         <div class="chat-page__inner">
@@ -71,8 +79,14 @@
                     @endforeach
                 </div>
 
+                <div class="error-message">
+                    @error('message')
+                        {{ $message }}
+                    @enderror
+                </div>
                 <div class="chat-page__form">
-                    <input class="chat-page__text" type="text" name="message" placeholder="取引メッセージを記入してください">
+                    <input class="chat-page__text" type="text" name="message" placeholder="取引メッセージを記入してください"
+                        value="{{ session('message') }}">
                     <div class="chat-image__area">
                         <label class="chat-image__label" for="fileupload">画像を追加</label>
                         <input class="chat-image__input" type="file" name="chat-image" id="fileupload">

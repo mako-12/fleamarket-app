@@ -17,6 +17,22 @@
 .aside
 {
     background-color: gray;
+}
+
+.other-items
+{
+    text-align: center;
+    margin-top: 50px;
+}
+
+.other-items a
+{
+    text-decoration: none;
+    font-size: 22px;
+    color: black;
+    background-color: #EEEFEB;
+    padding: 5px 20px;
+    border-radius: 6px;
 
 }
 
@@ -111,6 +127,7 @@
     flex: 1;
     overflow-y: auto;  /* メッセージ多い時スクロール */
     padding: 16px;
+    text-align: center;
 
 }
 
@@ -144,8 +161,12 @@
 {
     width: 80%;
     height: 40px;
+    border: 1px solid gray;
 }
 
+.chat-page__text::placeholder{
+        color: gray;
+}
 
 .chat-image__input
 {

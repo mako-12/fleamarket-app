@@ -36,8 +36,28 @@
 
 .user-name{
     font-size: 26px;
-    margin-left: 100px;
+    margin-left: 40px;
 }
+
+.form-rating.is-display {
+    display: flex;
+    gap: 4px;
+    flex-direction: row-reverse;
+    justify-content:center;
+
+}
+
+.form-rating .star {
+    font-size: 30px;
+    color: #ccc; /* グレー */
+}
+
+.form-rating .star.is-active {
+    color: #ffd45e; /* 黄色 */
+}
+
+
+
 
 .profile-page__edit{
     margin-left: auto;
@@ -84,6 +104,36 @@ input[type="radio"]{
 #tab-trading:checked ~ .tab-name label[for="tab-trading"]
 {
     color: red;
+}
+
+/* タグ横のカウント */
+.badge {
+    display: inline-block;
+    margin-left: 6px;
+    padding: 2px 6px;
+    font-size: 12px;
+    color: #fff;
+    background-color: #e53935;
+    border-radius: 12px;
+}
+
+.item-card {
+    position: relative;
+}
+
+.badge-item {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    min-width: 20px;
+    height: 20px;
+    padding: 0 6px;
+    font-size: 12px;
+    color: #fff;
+    background-color: #e53935;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 20px;
 }
 
 

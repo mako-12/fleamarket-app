@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Item;
 use App\Models\Address;
 use App\Models\Profile;
+use App\Models\Evaluation;
+use App\Models\ChatMessage;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\AddressRequest;
 use App\Http\Requests\ProfileRequest;
@@ -17,7 +20,15 @@ class ProfileController extends Controller
     {
         $tab = $request->input('tab', 'sell');
         $profile = auth()->user()->profile;
+        // $items = $profile->items;
+
+        if (!$profile) {
+            abort(404);
+        }
+
         $items = $profile->items;
+
+
         $purchases = $profile->boughtTransactions()->with('item')->get();
 
         // $tradingTransactions = Transaction::where('buyer_profile_id', $profile->id)
@@ -25,12 +36,32 @@ class ProfileController extends Controller
         //     ->with('item')
         //     ->get();
 
+
+        //評価数と平均を取得
+        $averageRating = Evaluation::where('evaluated_profile_id', $profile->id)
+            ->avg('rating');
+
+        $roundedRating = $averageRating ? round($averageRating) : null;
+
+
+
+        //購入者の出品一覧の表示?
+        // 購入した商品
+        $evaluatedTransactions = Transaction::where('buyer_profile_id', $profile->id)
+            ->where('status', Transaction::EVALUATED_COMPLETE)
+            ->with('item')
+            ->get();
+
+
         //PURCHASE_COMPLETE(購入済み)を取得
         $tradingTransactions = Transaction::where(function ($query) use ($profile) {
             $query->where('buyer_profile_id', $profile->id)
                 ->orWhere('seller_profile_id', $profile->id);
         })
-            ->where('status', Transaction::PURCHASE_COMPLETE)
+            ->whereIn('status', [
+                Transaction::PURCHASE_COMPLETE,
+                Transaction::TRANSACTION_COMPLETE,
+            ])
             ->with('item')
             ->get();
 
@@ -40,8 +71,40 @@ class ProfileController extends Controller
             ->with('item')
             ->get();
 
+        // 未読カウント
+        $unreadMessageCount = ChatMessage::whereHas('transaction', function ($query) use ($profile) {
+            $query->where(function ($q) use ($profile) {
+                $q->where('buyer_profile_id', $profile->id)
+                    ->orWhere('seller_profile_id', $profile->id);
+            });
+        })
+            ->where('sender_profile_id', '!=', $profile->id)
+            ->where('is_read', false)
+            ->count();
 
-        return view('profile.show', compact('profile', 'items', 'tab', 'purchases', 'tradingTransactions', 'completedTransactions'));
+        // 商品ごとの未読カウント
+        //1つめ
+        $unreadMessagesByTransaction = ChatMessage::select(
+            'transaction_id',
+            DB::raw('count(*) as unread_count')
+        )
+            ->where('sender_profile_id', '!=', $profile->id)
+            ->where('is_read', false)
+            ->whereHas('transaction', function ($query) use ($profile) {
+                $query->where(function ($q) use ($profile) {
+                    $q->where('buyer_profile_id', $profile->id)
+                        ->orWhere('seller_profile_id', $profile->id);
+                })
+                    ->where('status', Transaction::PURCHASE_COMPLETE);
+            })
+            ->groupBy('transaction_id')
+            ->pluck('unread_count', 'transaction_id');
+
+
+
+        // dd($unreadMessagesByTransaction);
+
+        return view('profile.show', compact('profile', 'items', 'tab', 'purchases', 'tradingTransactions', 'completedTransactions', 'evaluatedTransactions', 'unreadMessageCount', 'unreadMessagesByTransaction', 'roundedRating'));
     }
 
     public function editAddress($item_id)

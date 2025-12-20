@@ -14,6 +14,7 @@ class ChatMessage extends Model
         'sender_profile_id',
         'message',
         'chat_image',
+        'is_read',
     ];
 
     public function transaction()

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ChatMessage;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
+use App\Http\Requests\ChatMessageRequest;
 
 class ChatMessageController extends Controller
 {
@@ -26,23 +27,53 @@ class ChatMessageController extends Controller
             && $transaction->status === Transaction::TRANSACTION_COMPLETE
             && ! $transaction->sellerEvaluation;
 
+
+        //既読処理
+        ChatMessage::where('transaction_id', $transaction->id)
+            ->where('sender_profile_id', '!=', $profileId)
+            ->where('is_read', false)
+            ->update(['is_read' => true]);
+
+
+        //その他の取引
+        $sidebarTransactions = Transaction::where('seller_profile_id', $profileId)
+            ->whereIn('status', [
+                Transaction::PURCHASE_COMPLETE,
+                Transaction::TRANSACTION_COMPLETE,
+            ])
+            ->with('item')
+            ->withMax('chatMessages', 'created_at')
+            ->orderByDesc('chat_messages_max_created_at')
+            ->get();
+
+        // メインのチャット表示
+        // $messages = $transaction->chatMessages()
+        //     ->orderBy('created_at')
+        //     ->get();
+
+
+
         return view('chat.base', [
             'transaction' => $transaction,
             'messages' => $transaction->chatMessages()->oldest()->get(),
             'myProfileId' => $profileId,
             'showSellerEvaluationModal' => $showSellerEvaluationModal,
+            'sidebarTransactions' => $sidebarTransactions,
         ]);
     }
 
     //メッセージ送信
-    public function store(Request $request, Transaction $transaction)
+    public function store(ChatMessageRequest $request, Transaction $transaction)
     {
         ChatMessage::create([
             'transaction_id' => $transaction->id,
             'sender_profile_id' => auth()->user()->profile->id,
             'message' => $request->message,
             'chat_image' => $request->chat_image,
+            'is_read' => false,
         ]);
+
+        // session(['message' => $request->message]);
 
         return back();
     }

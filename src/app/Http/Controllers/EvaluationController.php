@@ -57,6 +57,7 @@ class EvaluationController extends Controller
                 // 購入者が評価した段階
                 $transaction->update([
                     'status' => Transaction::TRANSACTION_COMPLETE,
+                    'completed_at' => now(),
                 ]);
             } elseif ($isSeller) {
                 // 出品者も評価した → 両者評価済み
@@ -67,6 +68,6 @@ class EvaluationController extends Controller
         });
 
 
-        return redirect()->route('mypage');
+        return redirect()->route('home');
     }
 }
