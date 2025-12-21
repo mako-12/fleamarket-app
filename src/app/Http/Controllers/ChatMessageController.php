@@ -62,18 +62,26 @@ class ChatMessageController extends Controller
         ]);
     }
 
+
     //メッセージ送信
     public function store(ChatMessageRequest $request, Transaction $transaction)
     {
+        $path = null;
+
+        // ① 画像があれば保存
+        if ($request->hasFile('chat_image')) {
+            $path = $request->file('chat_image')->store('chat_images', 'public');
+        }
+
         ChatMessage::create([
             'transaction_id' => $transaction->id,
             'sender_profile_id' => auth()->user()->profile->id,
             'message' => $request->message,
-            'chat_image' => $request->chat_image,
+            'chat_image' => $path,
             'is_read' => false,
         ]);
 
-        // session(['message' => $request->message]);
+
 
         return back();
     }
@@ -95,5 +103,32 @@ class ChatMessageController extends Controller
         }
 
         return view('chat.index', compact('transaction', 'showReviewModal'));
+    }
+
+    public function update(Request $request, ChatMessage $chatMessage)
+    {
+        if ($chatMessage->sender_profile_id !== auth()->user()->profile->id) {
+            abort(403);
+        }
+        $request->validate(['message' => 'required|string|max:400',]);
+        $chatMessage->update(['message' => $request->message,]);
+        return redirect()->back();
+    }
+
+    public function edit(ChatMessage $chatMessage, Transaction $transaction)
+    {
+        if ($chatMessage->sender_profile_id !== auth()->user()->profile->id) {
+            abort(403);
+        }
+        return view('chat.edit', compact('chatMessage', 'transaction'));
+    }
+
+    public function destroy(ChatMessage $chatMessage)
+    {
+        if ($chatMessage->sender_profile_id !== auth()->user()->profile->id) {
+            abort(403);
+        }
+        $chatMessage->delete();
+        return redirect()->back();
     }
 }

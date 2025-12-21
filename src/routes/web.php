@@ -53,10 +53,15 @@ Route::middleware('auth')->group(function () {
     //Proテスト追記部分
     Route::get('/transactions/{transaction}/chat', [ChatMessageController::class, 'index'])->name('chat.index');
     Route::post('/transactions/{transaction}/chat', [ChatMessageController::class, 'store'])->name('chat.store');
-    Route::get('/transaction/{transaction}/chat/modal',[ChatMessageController::class,'modal'])->name('chat.modal');
+    Route::get('/transaction/{transaction}/chat/modal', [ChatMessageController::class, 'modal'])->name('chat.modal');
 
     Route::get('/transaction/{transaction}/evaluation', [EvaluationController::class, 'create'])->name('evaluation.create');
     Route::post('/transaction/{transaction}/evaluation', [EvaluationController::class, 'store'])->name('evaluation.store');
+
+    //チャットメッセージの編集・削除
+    Route::put('/chat/{chatMessage}', [ChatMessageController::class, 'update'])->name('chat.update');
+    Route::get('/chat/{chatMessage}/destroy', [ChatMessageController::class, 'destroy'])->name('chat.destroy');
+    Route::get('/chat/{chatMessage}/edit/{transaction}', [ChatMessageController::class, 'edit'])->name('chat.edit');
 });
 
 Route::post('/favorites/{item}', [FavoriteController::class, 'toggle'])->name('favorites.toggle')->middleware('auth');

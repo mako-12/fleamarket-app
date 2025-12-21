@@ -2,8 +2,9 @@
 .content
 {
     display: flex;
+    height: auto;
     flex-direction: column;
-    height: 100vh;
+    /* overflow: hidden; */
 }
 
 .chat-page
@@ -17,6 +18,9 @@
 .aside
 {
     background-color: gray;
+    height: 100%;
+    overflow-y: auto;
+    /* overflow: hidden; */
 }
 
 .other-items
@@ -68,19 +72,27 @@
   justify-content: flex-end;
 }
 
-.transaction-completed__button-input
+.transaction-completed__button
 {
-  color: white;
-  background-color: #f57c7c;
-  border-radius: 15px;
-  border: 1px solid #f57c7c;
+    margin-left: auto;
 
-
-  padding: 5px 3px;
-  margin-left: auto;
 }
 
+.transaction-completed__button a
+{
+    display: block;
+    width: 150px;
+    height: 40px;
+    color: white;
+    background-color: #f57c7c;
+    border-radius: 18px;
+    border: 1px solid #f57c7c;
+    text-decoration: none;
 
+    text-align: center;
+    padding: 5px 8px;
+    margin-left: auto;
+}
 
 .chat-page__item
 {
@@ -122,34 +134,82 @@
     font-size: 30px;
 }
 
-.chat-page__main
-{
-    flex: 1;
-    overflow-y: auto;  /* メッセージ多い時スクロール */
-    padding: 16px;
-    text-align: center;
-
-}
-
-
+/* チャット欄 */
 .chat-message {
-    padding: 10px;
-    margin: 8px 0;
-    border-radius: 8px;
-
-    background-color:#ccc;
+    /* flex: 1; */
+    display: flex;
+    flex-direction: column;
+    /* overflow-y: auto; */
+    /* overflow: visible; */
+    margin: 16px 20px;
+    /* height: 100%; */
 }
 
-.chat-message.me {
-    margin-left: auto;
-    max-width: 35%;
+.chat-user{
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
-.chat-message.other {
-    margin-right: auto;
-    max-width: 35%;
+.chat-page__main-icon{
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
 }
 
+.chat-message.is-other {
+    /* justify-content: flex-start; */
+    align-items: flex-start;
+}
+
+/* .chat-message.is-other .chat-user {
+    text-align: left;
+    margin-right: 8px;
+} */
+.chat-message.is-mine {
+    align-items: flex-end;
+}
+
+/* .chat-message.is-mine .chat-user{
+    text-align: right;
+    margin-left: 8px;
+    justify-content: flex-end;
+} */
+
+.chat-bubble{
+    max-width: 50%;
+    padding: 10px 14px;
+    border-radius: 6px;
+    background-color: #f1f1f1;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.chat-image {
+    max-width: 200px;
+    border-radius: 6px;
+    margin-top: 6px;
+}
+
+
+/* 編集・削除 */
+.action-edit{
+    text-decoration: none;
+    color: rgb(71, 71, 71);
+    font-size: 14px;
+    text-shadow: 0px 5px 3px rgb(179, 179, 179);
+
+}
+
+.action-delete{
+    text-decoration: none;
+    color: rgb(71, 71, 71);
+    font-size: 14px;
+    text-shadow: 0px 5px 3px rgb(179, 179, 179);
+}
+
+
+/* 入力欄 */
 .chat-page__form
 {
     display: flex;
@@ -195,6 +255,7 @@
 }
 
 
+/* モーダル */
 .modal-overlay{
     position: fixed;
     top: 0;
@@ -211,7 +272,6 @@
 .modal-form__group
 {
     background-color: #fdfad1;
-    /* padding: 20px; */
     border-radius: 8px;
     border: 1px solid black;
     width: 500px;

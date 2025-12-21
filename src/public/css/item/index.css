@@ -28,8 +28,6 @@ input[type="radio"]
     color: red;
 }
 
-
-
 .tab-panel{
     display: none;
 }
@@ -43,7 +41,9 @@ input[type="radio"]
 }
 
 .tab-panel__inner{
-    margin: 50px;
+    /* margin: 50px; */
+    padding: 50px;
+    margin: 0;
 }
 
 .recommend-panel, .mylist-panel{
@@ -52,9 +52,15 @@ input[type="radio"]
     gap: 20px;
 }
 
-.item__card img{
+/* .item__card img{
     width: 300px;
     height: 300px;
+} */
+
+.item__card img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
 }
 
 .item__name {
@@ -73,4 +79,16 @@ input[type="radio"]
     background-color: red;
     color: white;
 
+}
+
+@media (max-width: 1024px) {
+    .recommend-panel, .mylist-panel {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .recommend-panel, .mylist-panel {
+        grid-template-columns: 1fr;
+    }
 }

@@ -49,12 +49,12 @@
                         </div>
                     </form> --}}
 
-                    <a href="{{ route('chat.modal', ['transaction' => $transaction->id]) }}"
-                        class="transaction-completed__button">
-                        取引を完了する
-                    </a>
+                    <div class="transaction-completed__button">
+                        <a href="{{ route('chat.modal', ['transaction' => $transaction->id]) }}">
+                            取引を完了する
+                        </a>
+                    </div>
                 @endif
-
             </div>
 
             <div class="chat-page__item">
@@ -68,28 +68,68 @@
                 </div>
             </div>
 
-
-            <form action="{{ route('chat.store', ['transaction' => $transaction->id]) }}" method="post">
+            {{-- チャット欄 --}}
+            <form action="{{ route('chat.store', ['transaction' => $transaction->id]) }}" method="post"
+                enctype="multipart/form-data">
                 @csrf
-                <div class="chat-page__main">
-                    @foreach ($messages as $message)
-                        <div class="chat-message {{ $message->sender_profile_id === $myProfileId ? 'me' : 'other' }}">
-                            {{ $message->message }}
+                @foreach ($messages as $message)
+                    @php
+                        $isMine = $message->sender_profile_id === auth()->user()->profile->id;
+                    @endphp
+                    <div class="chat-message {{ $isMine ? 'is-mine' : 'is-other' }}">
+                        <div class="chat-user">
+                            <img class="chat-page__main-icon"
+                                src="{{ $message->senderProfile->profile_image
+                                    ? asset('storage/' . $message->senderProfile->profile_image)
+                                    : asset('storage/profile_image/kkrn_icon_user_4.png') }}"
+                                alt="プロフィール画像">
+                            <p class="chat-user__name">
+                                {{ $message->senderProfile->user->name }}
+                            </p>
                         </div>
-                    @endforeach
-                </div>
+
+                        {{-- チャット本文 --}}
+                        <div class="chat-bubble">
+                            @if ($message->message)
+                                {{ $message->message }}
+                            @endif
+                        </div>
+                        @if ($message->chat_image)
+                            <img class="chat-image" src="{{ asset('storage/' . $message->chat_image) }}" alt="チャット画像">
+                        @endif
+
+
+                        @if ($isMine)
+                            <div class="chat-actions">
+                                <a class="action-edit"
+                                    href="{{ route('chat.edit', ['chatMessage' => $message->id, 'transaction' => $transaction->id]) }}">編集</a>
+                                <a class="action-delete" href="{{ route('chat.destroy', $message->id) }}"
+                                    onclick="return confirm('削除しますか？')">
+                                    削除
+                                </a>
+                            </div>
+                        @endif
+                    </div>
+                @endforeach
 
                 <div class="error-message">
                     @error('message')
                         {{ $message }}
                     @enderror
+
+                    @error('chat_image')
+                        <p class="error-message">{{ $message }}</p>
+                    @enderror
                 </div>
+
+
+
                 <div class="chat-page__form">
                     <input class="chat-page__text" type="text" name="message" placeholder="取引メッセージを記入してください"
                         value="{{ session('message') }}">
                     <div class="chat-image__area">
                         <label class="chat-image__label" for="fileupload">画像を追加</label>
-                        <input class="chat-image__input" type="file" name="chat-image" id="fileupload">
+                        <input class="chat-image__input" type="file" name="chat_image" id="fileupload">
                     </div>
                     <div class="button">
                         <label for="send-button">
@@ -101,7 +141,6 @@
             </form>
         </div>
     </div>
-
     {{-- モーダルウィンドウ --}}
     @if (session('showBuyerEvaluationModal'))
         <div class="modal-overlay">

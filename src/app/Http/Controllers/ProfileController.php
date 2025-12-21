@@ -95,7 +95,10 @@ class ProfileController extends Controller
                     $q->where('buyer_profile_id', $profile->id)
                         ->orWhere('seller_profile_id', $profile->id);
                 })
-                    ->where('status', Transaction::PURCHASE_COMPLETE);
+                    ->whereIN('status', [
+                        Transaction::PURCHASE_COMPLETE,
+                        Transaction::TRANSACTION_COMPLETE,
+                    ]);
             })
             ->groupBy('transaction_id')
             ->pluck('unread_count', 'transaction_id');

@@ -21,6 +21,7 @@ input{
   display: flex;
   flex-direction: column;
   height: 100%;
+  min-width: 100vw;
 }
 
 .error-message{
@@ -29,25 +30,33 @@ input{
 
 
 /* ヘッダー */
-.header{
+.header {
+    width: 100%;
+    background-color: black;
+}
+
+.header-inner{
     display:grid;
     align-items: center;
+    width: 100%;
     height: 60px;
     padding: 10px;
     border: 1px solid black;
     background-color: black;
     text-align: center;
 
-    gap: 100px;
-    grid-template-columns: auto 1fr auto;
+    gap: 50px;
+    grid-template-columns: auto 2fr auto;
+
 }
 
 .header__logo{
-    padding-left: 30px;
+    padding-left: 15px;
 }
 
 .header__search{
-    min-width: 250px;
+    min-width: 220px;
+    max-width: 500px;
 }
 
 .header__search-form{
@@ -65,7 +74,6 @@ input{
     padding-left: 30px;
 }
 
-
 input::placeholder{
     color: black;
 }
@@ -82,14 +90,13 @@ input::placeholder{
     gap: 20px;
     align-items: center;
     flex-wrap: nowrap;
-
 }
-
 
 .header-nav__logout{
     color: white;
     font-size: 18px;
     border: none;
+    text-decoration: none;
 }
 
 .header-nav__mypage{
@@ -107,5 +114,30 @@ input::placeholder{
     background-color: white;
     color: black;
     text-decoration: none;
+}
+
+
+/* ここから上もともとの記述 */
+
+@media(min-width: 768px) and (max-width: 850px){
+    .header__logo img{
+        width: 25vw;
+    }
+
+    .header-inner{
+        gap: 20px;
+    }
+
+    .header__nav{
+        font-size: 15px;
+        gap: 5px;
+    }
+
+    .header-nav__logout{
+        font-size: 14px;
+    }
+    .header-nav__mypage{
+        font-size: 14px;
+    }
 }
 

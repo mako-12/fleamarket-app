@@ -96,7 +96,7 @@ input[type="radio"]{
 }
 
 .tab-label:not(:first-child){
-    margin-left: 60px;
+    margin-left: 90px;
 }
 
 #tab-sell:checked ~ .tab-name label[for="tab-sell"],
@@ -167,8 +167,9 @@ input[type="radio"]{
 }
 
 .item-card img{
-    width: 300px;
-    height: 300px;
+    width: 200px;
+    height: 200px;
+    aspect-ratio: 1 / 1;
 }
 
 .my-item-name {

@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Evaluation;
+use App\Models\ChatMessage;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\TransactionCompletedMail;
 
 class EvaluationController extends Controller
 {
@@ -65,9 +68,27 @@ class EvaluationController extends Controller
                     'status' => Transaction::EVALUATED_COMPLETE,
                 ]);
             }
-        });
 
+            // $transaction->load(['item', 'sellerProfile.user']);
+
+
+            // ② 評価済みチェック
+            $buyerEvaluated = Evaluation::where('transaction_id', $transaction->id)
+                ->where('evaluator_profile_id', $transaction->buyer_profile_id)
+                ->exists();
+
+            $sellerEvaluated = Evaluation::where('transaction_id', $transaction->id)
+                ->where('evaluator_profile_id', $transaction->seller_profile_id)
+                ->exists();
+
+
+            if ($buyerEvaluated === true && $sellerEvaluated === false) {
+                Mail::to($transaction->sellerProfile->user->email)
+                    ->send(new TransactionCompletedMail($transaction));
+            }
+        });
 
         return redirect()->route('home');
     }
+
 }

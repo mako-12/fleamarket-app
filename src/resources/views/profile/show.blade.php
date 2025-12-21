@@ -39,8 +39,6 @@
 
 
 
-
-
         <div class="profile-page__item-list">
             <input type="radio" name="tab-btn" id="tab-sell"{{ $tab === 'sell' ? 'checked' : '' }}>
             <input type="radio" name="tab-btn" id="tab-purchase"{{ $tab === 'buy' ? 'checked' : '' }}>

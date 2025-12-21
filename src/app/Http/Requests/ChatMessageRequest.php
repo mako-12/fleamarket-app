@@ -25,7 +25,7 @@ class ChatMessageRequest extends FormRequest
     {
         return [
             'message' => 'required|max:400',
-            'chat-image' => 'nullable|file|mimes:jpeg,png',
+            'chat_image' => 'nullable|image|mimes:jpeg,png|max:2048',
 
         ];
     }
@@ -35,7 +35,8 @@ class ChatMessageRequest extends FormRequest
         return [
             'message.required' => '本文を入力してください',
             'message.max' => '本文は400文字以内で入力してください',
-            'profile_image.mimes' => '「.png」または「.jpeg」形式でアップロードしてください',
+            'chat_image.mimes' => '「.png」または「.jpeg」形式でアップロードしてください',
+            'chat_image.max' => '画像サイズは2MB以内にしてください',
         ];
     }
 }
