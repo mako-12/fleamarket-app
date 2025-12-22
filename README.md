@@ -31,6 +31,9 @@ MAIL_FROM_NAME="COACHTECH"
   php artisan migrate
 7. シーディングの実行
   php artisan db:seed
+8. シンボリックリンクの作成（画像表示用）
+  php artisan storage:link
+
 
 
 ## 使用技術(実行環境)
