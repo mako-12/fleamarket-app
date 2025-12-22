@@ -12,8 +12,6 @@
     margin: 20px;
 }
 
-
-
 .user-icon{
     width: 100px;
     height: 100px;
@@ -22,10 +20,8 @@
     object-fit: cover;
 }
 
-
 .user-icon img{
     position: absolute;
-
 }
 
 .profile-setup-form__profile-image{
@@ -35,7 +31,6 @@
 .profile-image__area{
     margin-left: 50px;
 }
-
 
 .profile-image__input{
     display: none;
@@ -61,7 +56,6 @@
     font-size: 18px;
     font-weight: bold;
     margin-bottom: 5px;
-
 }
 
 .form__group-content--input

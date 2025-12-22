@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use Stripe\Stripe;
 use App\Models\Item;
-use App\Models\Comment;
-use App\Models\Purchase;
 use App\Models\Transaction;
 use App\Models\ItemCategory;
 use Illuminate\Http\Request;
@@ -117,13 +115,6 @@ class ItemController extends Controller
         $payment_method = session('payment_method');
 
         $item = Item::findOrFail($item_id);
-
-        // Purchase::create([
-        //     'profile_id' => auth()->user()->profile->id,
-        //     'item_id' => $item_id,
-        //     'payment_method' => $payment_method,
-
-        // ]);
 
         $transaction = Transaction::create([
             'buyer_profile_id' => auth()->user()->profile->id,

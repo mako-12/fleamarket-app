@@ -35,16 +35,6 @@ class Transaction extends Model
     public const TRANSACTION_COMPLETE = 1;
     public const EVALUATED_COMPLETE = 2;
 
-    // public function getStatusNameAttribute(): string
-    // {
-    //     return match ($this->status) {
-    //         self::PURCHASE_COMPLETE => '購入完了',
-    //         self::TRANSACTION_COMPLETE => '取引完了',
-    //         self::EVALUATED_COMPLETE => '評価済み',
-    //         default => '不明',
-    //     };
-    // }
-
     public const STATUSES = [
         self::PURCHASE_COMPLETE => '購入完了',
         self::TRANSACTION_COMPLETE => '取引完了',

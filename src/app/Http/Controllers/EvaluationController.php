@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Evaluation;
-use App\Models\ChatMessage;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -20,20 +19,6 @@ class EvaluationController extends Controller
     //評価保存
     public function store(Request $request, Transaction $transaction)
     {
-        // DB::transaction(function () use ($request, $transaction) {
-        //     Evaluation::create([
-        //         'transaction_id' => $transaction->id,
-        //         'evaluator_profile_id' => auth()->user()->profile->id,
-        //         'evaluated_profile_id' => $transaction->seller_profile_id,
-        //         'rating' => $request->rating,
-        //     ]);
-
-        //     $transaction->update([
-        //         'status' => Transaction::TRANSACTION_COMPLETE,
-        //         'completed_at' => now(),
-        //     ]);
-        // });
-
         DB::transaction(function () use ($request, $transaction) {
 
             $myProfileId = auth()->user()->profile->id;
@@ -69,9 +54,6 @@ class EvaluationController extends Controller
                 ]);
             }
 
-            // $transaction->load(['item', 'sellerProfile.user']);
-
-
             // ② 評価済みチェック
             $buyerEvaluated = Evaluation::where('transaction_id', $transaction->id)
                 ->where('evaluator_profile_id', $transaction->buyer_profile_id)
@@ -90,5 +72,4 @@ class EvaluationController extends Controller
 
         return redirect()->route('home');
     }
-
 }

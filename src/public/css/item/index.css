@@ -42,7 +42,7 @@ input[type="radio"]
 
 .tab-panel__inner{
     /* margin: 50px; */
-    padding: 50px;
+    padding: 40px;
     margin: 0;
 }
 
@@ -52,21 +52,22 @@ input[type="radio"]
     gap: 20px;
 }
 
-/* .item__card img{
-    width: 300px;
-    height: 300px;
-} */
+.item__card img{
+    width: 250px;
+    height: 250px;
+}
 
-.item__card img {
+
+/* .item__card img {
     width: 100%;
     height: auto;
     aspect-ratio: 1 / 1;
-}
+
+} */
 
 .item__name {
   font-size: 18px;
 }
-
 
 .sold{
     position: relative;
@@ -74,21 +75,10 @@ input[type="radio"]
 
 .sold-label{
     position: absolute;
-    bottom: 298px;
+
+    bottom: 247px;
     padding: 5px 10px;
     background-color: red;
     color: white;
 
-}
-
-@media (max-width: 1024px) {
-    .recommend-panel, .mylist-panel {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 600px) {
-    .recommend-panel, .mylist-panel {
-        grid-template-columns: 1fr;
-    }
 }

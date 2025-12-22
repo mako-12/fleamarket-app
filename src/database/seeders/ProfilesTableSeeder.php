@@ -14,8 +14,6 @@ class ProfilesTableSeeder extends Seeder
      */
     public function run()
     {
-        // Profile::factory()->count(2)->create();
-
         DB::table('profiles')->insert([
             [
                 'id' => 1,

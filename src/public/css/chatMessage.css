@@ -1,43 +1,44 @@
-
-.content
-{
+.content{
     display: flex;
-    height: auto;
     flex-direction: column;
-    /* overflow: hidden; */
 }
 
-.chat-page
-{
+.chat-page{
     display: grid;
     grid-template-columns: 250px 1fr;
     gap: 20px;
     height: 100vh;
+    overflow: hidden;
+    height: calc(100vh - 60px);
 }
 
-.aside
-{
+.aside{
     background-color: gray;
-    height: 100%;
+    height: 100vh;
     overflow-y: auto;
-    /* overflow: hidden; */
+        height: calc(100vh - 60px);
 }
 
-.other-items
-{
+.chat-page__inner{
+    display: flex;
+    flex-direction:column;
+    overflow: hidden;
+    min-height: 0;
+}
+
+
+.other-items{
     text-align: center;
     margin-top: 50px;
 }
 
-.other-items a
-{
+.other-items a{
     text-decoration: none;
     font-size: 22px;
     color: black;
     background-color: #EEEFEB;
     padding: 5px 20px;
     border-radius: 6px;
-
 }
 
 .aside h2{
@@ -49,37 +50,31 @@
 .chat-page__title{
     display: flex;
     align-items: center;
-
-    /* margin: 20px auto; */
     padding: 5px 30px;
-
     border-bottom: 1px solid black ;
+
+    min-height: 0;
 }
-.chat-page__image
-{
+.chat-page__image{
     width: 100px;
     height: 100px;
 }
 
-.chat-page__icon
-{
+.chat-page__icon{
     width: 100%;
     height: 100%;
 }
 
-.transaction-completed__button
-{
+.transaction-completed__button{
   justify-content: flex-end;
 }
 
-.transaction-completed__button
-{
+.transaction-completed__button{
     margin-left: auto;
 
 }
 
-.transaction-completed__button a
-{
+.transaction-completed__button a{
     display: block;
     width: 150px;
     height: 40px;
@@ -97,18 +92,16 @@
 .chat-page__item
 {
     border-bottom: 1px solid black ;
+    min-height: 0;
 }
 
-.item-inner
-{
+.item-inner{
     display: flex;
-    /* align-items: center; */
     padding: 20px 50px;
 }
 
 
-.item-image
-{
+.item-image{
     width: 200px;
     height: 200px;
 }
@@ -119,13 +112,11 @@
     object-fit: cover;
 }
 
-.item-detail
-{
+.item-detail{
     margin-left: 40px;
 }
 
-.item-name
-{
+.item-name{
     margin-top: 40px;
     margin-bottom: 30px;
 }
@@ -135,14 +126,24 @@
 }
 
 /* チャット欄 */
-.chat-message {
-    /* flex: 1; */
+.chat-main {
+    flex: 1;
     display: flex;
     flex-direction: column;
-    /* overflow-y: auto; */
-    /* overflow: visible; */
+    overflow: hidden;
+    min-height: 0;
+}
+
+.chat-window {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+.chat-message {
+    display: flex;
+    flex-direction: column;
     margin: 16px 20px;
-    /* height: 100%; */
 }
 
 .chat-user{
@@ -158,23 +159,12 @@
 }
 
 .chat-message.is-other {
-    /* justify-content: flex-start; */
     align-items: flex-start;
 }
 
-/* .chat-message.is-other .chat-user {
-    text-align: left;
-    margin-right: 8px;
-} */
 .chat-message.is-mine {
     align-items: flex-end;
 }
-
-/* .chat-message.is-mine .chat-user{
-    text-align: right;
-    margin-left: 8px;
-    justify-content: flex-end;
-} */
 
 .chat-bubble{
     max-width: 50%;
@@ -212,9 +202,12 @@
 /* 入力欄 */
 .chat-page__form
 {
+    flex-shrink: 0;
+    background: #fff;
+    padding: 10px;
     display: flex;
     align-items: center;
-
+    gap: 10px;
 }
 
 .chat-page__text
@@ -299,9 +292,7 @@
     display: flex;
     flex-direction: row-reverse;
     justify-content:center;
-
     gap:10px;
-    /* margin: 20px auto; */
 }
 
 .form-rating label{

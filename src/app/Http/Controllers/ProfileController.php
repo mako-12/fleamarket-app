@@ -28,14 +28,7 @@ class ProfileController extends Controller
 
         $items = $profile->items;
 
-
         $purchases = $profile->boughtTransactions()->with('item')->get();
-
-        // $tradingTransactions = Transaction::where('buyer_profile_id', $profile->id)
-        //     ->where('status', Transaction::PURCHASE_COMPLETE)
-        //     ->with('item')
-        //     ->get();
-
 
         //評価数と平均を取得
         $averageRating = Evaluation::where('evaluated_profile_id', $profile->id)
@@ -83,7 +76,6 @@ class ProfileController extends Controller
             ->count();
 
         // 商品ごとの未読カウント
-        //1つめ
         $unreadMessagesByTransaction = ChatMessage::select(
             'transaction_id',
             DB::raw('count(*) as unread_count')
@@ -103,9 +95,6 @@ class ProfileController extends Controller
             ->groupBy('transaction_id')
             ->pluck('unread_count', 'transaction_id');
 
-
-
-        // dd($unreadMessagesByTransaction);
 
         return view('profile.show', compact('profile', 'items', 'tab', 'purchases', 'tradingTransactions', 'completedTransactions', 'evaluatedTransactions', 'unreadMessageCount', 'unreadMessagesByTransaction', 'roundedRating'));
     }

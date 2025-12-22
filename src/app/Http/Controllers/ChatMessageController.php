@@ -46,12 +46,7 @@ class ChatMessageController extends Controller
             ->orderByDesc('chat_messages_max_created_at')
             ->get();
 
-        // メインのチャット表示
-        // $messages = $transaction->chatMessages()
-        //     ->orderBy('created_at')
-        //     ->get();
-
-
+        // $draft = session('chat_message');
 
         return view('chat.base', [
             'transaction' => $transaction,
@@ -59,6 +54,7 @@ class ChatMessageController extends Controller
             'myProfileId' => $profileId,
             'showSellerEvaluationModal' => $showSellerEvaluationModal,
             'sidebarTransactions' => $sidebarTransactions,
+            // 'draft' => $draft,
         ]);
     }
 
@@ -81,9 +77,7 @@ class ChatMessageController extends Controller
             'is_read' => false,
         ]);
 
-
-
-        return back();
+        return back()->withInput();
     }
     public function modal(Transaction $transaction)
     {

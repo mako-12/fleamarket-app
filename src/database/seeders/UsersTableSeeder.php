@@ -16,8 +16,6 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        // User::factory()->count(2)->create();
-
         DB::table('users')->insert([
             [
                 'name' => 'ユーザー１',

@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@section('css')
+    <link rel="stylesheet" href="{{ asset('css/chatEdit.css') }}">
+
 @section('content')
     <div class="edit-wrapper">
         <h2>メッセージを編集</h2>
@@ -14,9 +17,11 @@
                 <p style="color:red;">{{ $message }}</p>
             @enderror
 
-            <button type="submit">更新する</button>
-        </form>
 
-        <a href="{{ route('chat.index', $transaction->id) }}">戻る</a>
+            <button type="submit" class="edit-submit">更新する</button>
+        </form>
+        <div class="back-button">
+            <a href="{{ route('chat.index', $transaction->id) }}">戻る</a>
+        </div>
     </div>
 @endsection

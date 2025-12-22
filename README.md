@@ -21,6 +21,9 @@ DB_PORT=3306
 DB_DATABASE=laravel_db
 DB_USERNAME=laravel_user
 DB_PASSWORD=laravel_pass
+
+MAIL_FROM_ADDRESS=test@example.com
+MAIL_FROM_NAME="COACHTECH"
 ```
 5. アプリケーションキーの作成
   php artisan key:generate
@@ -42,8 +45,20 @@ DB_PASSWORD=laravel_pass
 ## ER図
 <img width="1111" height="761" alt="Image" src="https://github.com/user-attachments/assets/4d689bd3-8cf2-4b4b-b6be-906988e4025c" />
 
+## テストアカウント
 
-
+name: ユーザー１
+email: user1@example.com
+password: password
+-------------------------
+name: ユーザー２
+email: user2@example.com
+password: password 
+-------------------------
+name: ユーザー３
+email: user3@example.com
+password: password
+-------------------------
 
 ## URL
 - 開発環境：http://localhost/

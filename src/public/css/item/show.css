@@ -10,9 +10,7 @@
 
 .item-content{
     width: 70%;
-    /* margin: 0 auto; */
 }
-
 
 .actions-btn{
   display: flex;
@@ -42,7 +40,6 @@
 .item-price{
     display: flex;
     align-items: center;
-
 }
 
 .item-price__yen{
@@ -110,9 +107,6 @@
     display: flex;
     margin-left: 50px;
     gap: 20px;
-
-
-
 }
 
 .category-simple, .condition-content{
@@ -120,13 +114,11 @@
     background-color: rgb(212, 212, 212);
     border-radius: 20px;
     align-items: center;
-
 }
 
 .condition-content{
     margin-left: 50px;
 }
-
 
 .comment-box{
     margin-bottom: 15px;
@@ -152,7 +144,6 @@
 .icon img{
 position: absolute;
 object-fit: cover;
-
 }
 
 .user-area{
@@ -169,11 +160,7 @@ object-fit: cover;
     padding: 10px 10px;
     background-color: rgb(212, 212, 212);
     border-radius: 4px;
-
-
 }
-
-
 
 .comment-title__sub{
     padding: 20px 0 10px 0;

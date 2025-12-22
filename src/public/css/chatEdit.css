@@ -1,0 +1,27 @@
+.edit-wrapper{
+    margin: 20px;
+}
+
+h2{
+    margin: 5px;
+}
+
+
+.edit-submit{
+    color: white;
+    background-color: #f57c7c;
+    margin-top: 10px;
+    padding: 5px 10px;
+    border-radius: 3px;
+}
+
+.back-button{
+    margin-top: 15px;
+}
+.back-button a{
+    color: white;
+    background-color: black;
+    padding: 5px 25px;
+    border-radius: 3px;
+    text-decoration: none;
+}
