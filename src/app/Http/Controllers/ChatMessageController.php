@@ -36,11 +36,20 @@ class ChatMessageController extends Controller
 
 
         //その他の取引
-        $sidebarTransactions = Transaction::where('seller_profile_id', $profileId)
-            ->whereIn('status', [
-                Transaction::PURCHASE_COMPLETE,
-                Transaction::TRANSACTION_COMPLETE,
-            ])
+        // $sidebarTransactions = Transaction::where('seller_profile_id', $profileId)
+        //     ->whereIn('status', [
+        //         Transaction::PURCHASE_COMPLETE,
+        //         Transaction::TRANSACTION_COMPLETE,
+        //     ])
+        //     ->with('item')
+        //     ->withMax('chatMessages', 'created_at')
+        //     ->orderByDesc('chat_messages_max_created_at')
+        //     ->get();
+
+        $sidebarTransactions = Transaction::where(function ($query) use ($profileId) {
+            $query->where('seller_profile_id', $profileId)->orWhere('buyer_profile_id', $profileId);
+        })
+            ->whereIn('status', [Transaction::PURCHASE_COMPLETE, Transaction::TRANSACTION_COMPLETE,])
             ->with('item')
             ->withMax('chatMessages', 'created_at')
             ->orderByDesc('chat_messages_max_created_at')

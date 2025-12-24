@@ -56,13 +56,21 @@ class ProfileController extends Controller
                 Transaction::TRANSACTION_COMPLETE,
             ])
             ->with('item')
+            ->withMax('chatMessages', 'created_at')
             ->get();
 
-        //TRANSACTION_COMPLETE(取引完了)を取得
+        // TRANSACTION_COMPLETE(取引完了)を取得
         $completedTransactions = Transaction::where('seller_profile_id', $profile->id)
             ->where('status', Transaction::TRANSACTION_COMPLETE)
             ->with('item')
             ->get();
+
+        // 上記二つをマージ
+        $transactions = $tradingTransactions
+            ->merge($completedTransactions)
+            ->sortByDesc('chat_messages_max_created_at')
+            ->values();
+
 
         // 未読カウント
         $unreadMessageCount = ChatMessage::whereHas('transaction', function ($query) use ($profile) {
@@ -96,7 +104,7 @@ class ProfileController extends Controller
             ->pluck('unread_count', 'transaction_id');
 
 
-        return view('profile.show', compact('profile', 'items', 'tab', 'purchases', 'tradingTransactions', 'completedTransactions', 'evaluatedTransactions', 'unreadMessageCount', 'unreadMessagesByTransaction', 'roundedRating'));
+        return view('profile.show', compact('profile', 'items', 'tab', 'purchases', 'tradingTransactions', 'completedTransactions', 'evaluatedTransactions', 'unreadMessageCount', 'unreadMessagesByTransaction', 'roundedRating', 'transactions'));
     }
 
     public function editAddress($item_id)

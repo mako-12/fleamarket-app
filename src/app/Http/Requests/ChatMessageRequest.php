@@ -25,7 +25,7 @@ class ChatMessageRequest extends FormRequest
     {
         return [
             'message' => 'required|max:400',
-            'chat_image' => 'nullable|image|mimes:jpeg,png|max:2048',
+            'chat_image' => 'nullable|mimes:jpeg,png|max:2048',
 
         ];
     }

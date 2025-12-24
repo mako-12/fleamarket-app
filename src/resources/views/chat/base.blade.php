@@ -62,14 +62,8 @@
             </div>
 
             {{-- チャット欄 --}}
-
             <div class="chat-main">
                 <div class="chat-window"> {{-- 追加 --}}
-
-                    {{-- <form action="{{ route('chat.store', ['transaction' => $transaction->id]) }}" method="post"
-                    enctype="multipart/form-data">
-                    @csrf --}}
-
                     @foreach ($messages as $message)
                         @php
                             $isMine = $message->sender_profile_id === auth()->user()->profile->id;
@@ -122,14 +116,14 @@
                     @enderror
                 </div>
 
-                {{-- 入力欄 --}}
 
+                {{-- 入力欄 --}}
                 <form action="{{ route('chat.store', ['transaction' => $transaction->id]) }}" method="post"
                     enctype="multipart/form-data">
                     @csrf
                     <div class="chat-page__form">
                         <input class="chat-page__text" type="text" name="message" placeholder="取引メッセージを記入してください"
-                            value="{{ $errors->any() ? old('message') : '' }}">
+                            id="chat-input" data-transaction-id="{{ $transaction->id }}">
                         <div class="chat-image__area">
                             <label class="chat-image__label" for="fileupload">画像を追加</label>
                             <input class="chat-image__input" type="file" name="chat_image" id="fileupload">
@@ -217,3 +211,5 @@
         </div>
     @endif
 @endsection
+
+<script src="{{ asset('js/chat_draft.js') }}"></script>

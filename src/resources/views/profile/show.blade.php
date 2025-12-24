@@ -107,12 +107,12 @@
                 {{-- 取引中の商品タグ --}}
                 <div class="tab-panel" id="trading-panel">
                     <div class="trading-panel">
-                        @php
+                        {{-- @php
                             $transactions = $tradingTransactions->merge($completedTransactions);
-                        @endphp
+                        @endphp --}}
 
 
-                        @forelse($tradingTransactions as $transaction)
+                        @forelse($transactions as $transaction)
                             <div class="item-card">
 
                                 <a href="/transactions/{{ $transaction->id }}/chat">
